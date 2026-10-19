@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>口语糖果岛</title>
+<meta name="theme-color" content="#ffb3d1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=ZCOOL+KuaiLe&display=swap">
+<style>
+:root{--ink:#4a2c45;--ink2:#7a5d77;--cream:#fffaf3;--pink:#ff7eb3;--pink-d:#e0558f;--peach:#ffb38a;--lilac:#b99bff;--lilac-d:#8b6ae0;--mint:#6fd8a0;--mint-d:#3fb878;--sky:#7fd0ff;--yellow:#ffd54f;--red:#ff6b6b;
+ --d:'ZCOOL KuaiLe','Baloo 2','PingFang SC','Microsoft YaHei',sans-serif;--n:'Baloo 2','PingFang SC',sans-serif;--b:-apple-system,'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%}
+body{font-family:var(--b);color:var(--ink);background:linear-gradient(180deg,#ffd6e8 0%,#ffe9d6 40%,#e8f6ff 100%) fixed;overflow-x:hidden}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+.app{max-width:480px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:96px}
+.disp{font-family:var(--d)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--d);font-size:20px;padding:13px 22px;border-radius:20px;background:#fff;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);transition:transform .08s,box-shadow .08s;user-select:none}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.pink{background:linear-gradient(180deg,#ff9fc6,var(--pink));color:#fff;text-shadow:0 2px 0 var(--pink-d)}
+.btn.mint{background:linear-gradient(180deg,#9ff0c4,var(--mint));color:#fff;text-shadow:0 2px 0 var(--mint-d)}
+.btn.lilac{background:linear-gradient(180deg,#d6c4ff,var(--lilac));color:#fff;text-shadow:0 2px 0 var(--lilac-d)}
+.btn.yellow{background:linear-gradient(180deg,#ffe58a,var(--yellow))}
+.btn.wide{width:100%}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.card{background:var(--cream);border:3px solid var(--ink);border-radius:26px;box-shadow:0 6px 0 var(--ink);padding:18px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px}
+.small{font-size:13px;color:var(--ink2)}
+.squish{animation:squish .32s}
+@keyframes squish{30%{transform:scale(1.12,.86)}60%{transform:scale(.94,1.06)}}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes pop{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.shake{animation:shake .4s}
+.bob{animation:bob 1.6s ease-in-out infinite}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;display:flex;gap:8px;align-items:center;padding:12px 14px;background:linear-gradient(180deg,#ffd6e8ee,#ffd6e800)}
+.top .chip{font-family:var(--n);font-size:16px}
+.top .sp{flex:1}
+.goal{margin:4px 16px 0;display:flex;gap:12px;align-items:center}
+.goal .bar{flex:1;height:18px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+.goal .fill{height:100%;background:repeating-linear-gradient(-45deg,var(--pink) 0 10px,#ff9fc6 10px 20px);border-radius:999px;transition:width .6s}
+.hello{display:flex;gap:10px;align-items:center;margin:10px 16px}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:10px 14px;font-size:15px;line-height:1.5;font-weight:600}
+.bubble:before{content:"";position:absolute;left:-12px;top:22px;border:9px solid transparent;border-right-color:var(--ink)}
+.bubble:after{content:"";position:absolute;left:-7px;top:24px;border:7px solid transparent;border-right-color:#fff}
+
+/* fortune cookie */
+.cookie{margin:14px 16px;display:flex;gap:14px;align-items:center;cursor:pointer}
+.cookie .ic{font-size:46px;transition:transform .3s}
+.cookie.open .ic{transform:rotate(-18deg) scale(1.1)}
+.cookie h4{margin:0 0 4px;font-family:var(--d);font-size:19px;font-weight:400}
+.cookie p{margin:0;font-size:14px;line-height:1.6}
+
+/* map */
+.stagehead{margin:26px 16px 6px;padding:14px 16px;border-radius:24px;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);color:#fff;position:relative;overflow:hidden}
+.stagehead h3{margin:0;font-family:var(--d);font-weight:400;font-size:24px;text-shadow:0 2px 0 #0003}
+.stagehead .en{font-family:var(--n);font-size:13px;opacity:.9}
+.stagehead .ab{margin-top:8px;background:#ffffffe6;color:var(--ink);border-radius:14px;padding:7px 10px;font-size:13px;font-weight:700}
+.stagehead .big{position:absolute;right:10px;top:4px;font-size:58px;opacity:.95}
+.path{position:relative;margin:0 16px}
+.path>svg{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;width:66px;height:66px;border-radius:50%;border:3.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--n);font-weight:800;font-size:24px;color:#fff;text-shadow:0 2px 0 #0004}
+.node.lock{background:#e6dfe8!important;color:#b5a7b5;text-shadow:none;box-shadow:0 5px 0 #b5a7b5;border-color:#b5a7b5}
+.node.boss{width:80px;height:80px;font-size:38px;border-radius:26px}
+.node .st{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:15px;letter-spacing:-2px;white-space:nowrap;text-shadow:none}
+.node.cur:after{content:"";position:absolute;inset:-12px;border-radius:inherit;border:4px solid #fff;animation:ring 1.4s infinite}
+@keyframes ring{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.35);opacity:0}}
+.here{position:absolute;display:flex;flex-direction:column;align-items:center;pointer-events:none;z-index:3}
+.here .tag{font-family:var(--d);background:var(--yellow);border:3px solid var(--ink);border-radius:14px;padding:2px 10px;font-size:16px;margin-bottom:-6px;z-index:2}
+.finale{margin:30px 16px 10px;text-align:center}
+.finale h3{font-family:var(--d);font-weight:400;font-size:24px;margin:6px 0}
+
+/* tabs */
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:min(452px,calc(100% - 28px));display:flex;background:#fff;border:3px solid var(--ink);border-radius:24px;box-shadow:0 5px 0 var(--ink);z-index:30;padding:5px}
+.tabs button{flex:1;padding:8px 0;border-radius:18px;font-family:var(--d);font-size:15px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.tabs button i{font-style:normal;font-size:22px}
+.tabs button.on{background:#ffe1ee}
+
+/* future page */
+.sec{margin:18px 16px}
+.sec h2{font-family:var(--d);font-weight:400;font-size:26px;margin:0 0 10px;line-height:1.3}
+.postcard{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.postcard .em{font-size:34px;flex:none;width:52px;height:52px;border-radius:16px;background:#fff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center}
+.postcard b{display:block;font-size:16px;margin-bottom:2px}
+.postcard span{font-size:14px;color:var(--ink2);line-height:1.55}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vs .card{padding:14px}
+.vs h4{margin:0 0 8px;font-family:var(--d);font-weight:400;font-size:18px}
+.vs ul{margin:0;padding-left:18px;font-size:13px;line-height:1.7}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.stamp{aspect-ratio:1;border-radius:50%;border:3px dashed #c9b8c9;display:flex;align-items:center;justify-content:center;font-size:28px;filter:grayscale(1);opacity:.45;position:relative}
+.stamp.on{border:3px solid var(--pink-d);filter:none;opacity:1;background:#fff;transform:rotate(-8deg);box-shadow:0 0 0 4px #ffd1e4}
+.coverwrap{position:relative;border-radius:22px;overflow:hidden;border:3px solid var(--ink);box-shadow:0 6px 0 var(--ink)}
+.coverwrap canvas{display:block;width:100%}
+.coverwrap .lockv{position:absolute;inset:0;background:#ffffff8c;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--d);font-size:20px;text-align:center;gap:6px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.badge{text-align:center;padding:12px 6px}
+.badge .e{font-size:36px}
+.badge b{display:block;font-size:14px;margin-top:4px}
+.badge.off{filter:grayscale(1);opacity:.45}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.stats b{display:block;font-family:var(--n);font-size:28px;color:var(--pink-d)}
+
+/* overlays */
+.ov{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#ffe1ee,#fff6ea 50%,#e9f7ff);overflow-y:auto}
+.ov .in{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding:12px 16px 24px}
+.lhead{display:flex;align-items:center;gap:10px}
+.lhead .x{font-size:26px;width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid var(--ink)}
+.pbar{flex:1;height:20px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+.pbar div{height:100%;width:0;background:repeating-linear-gradient(-45deg,var(--mint) 0 10px,#9ff0c4 10px 20px);transition:width .4s}
+.combo{font-family:var(--d);background:var(--yellow);border:3px solid var(--ink);border-radius:14px;padding:2px 10px;font-size:16px;animation:pop .35s}
+.coach{display:flex;align-items:flex-start;gap:6px;margin:14px 0 10px}
+.coach .m{flex:none;width:76px}
+.coach .bubble{flex:1;margin-left:10px;font-size:16px}
+.stage{flex:1;display:flex;flex-direction:column;gap:14px}
+.scene{align-self:flex-start;background:#fff3c9}
+.en{font-family:var(--n);font-weight:700;font-size:30px;line-height:1.3;word-break:break-word}
+.en.long{font-size:24px}
+.zh{font-size:17px;font-weight:600;color:var(--ink2);margin-top:6px}
+.w{border-radius:8px;padding:0 2px;cursor:pointer;transition:background .15s}
+.w.g{border-bottom:3px dotted var(--lilac)}
+.w.say{background:var(--yellow)}
+.w.ok{color:#1fa463;background:#dcf8e8}
+.w.miss{color:#e5484d;background:#ffe3e3;text-decoration:underline wavy #e5484d55}
+.ex{background:#fff;border:2.5px dashed #e3cfe0;border-radius:18px;padding:10px 12px;font-size:15px;line-height:1.6}
+.ex .e{font-family:var(--n);font-weight:600;font-size:16px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.play{width:56px;height:56px;border-radius:50%;font-size:24px;padding:0}
+.mic{width:96px;height:96px;border-radius:50%;font-size:40px;padding:0;margin:0 auto;position:relative}
+.mic.rec{background:linear-gradient(180deg,#ff9b9b,var(--red))}
+.mic.rec:after{content:"";position:absolute;inset:-10px;border-radius:50%;border:4px solid var(--red);animation:ring 1.1s infinite}
+.miclabel{text-align:center;font-family:var(--d);font-size:17px;margin-top:6px}
+.scorebox{display:flex;align-items:center;gap:14px;animation:pop .4s}
+.scorebox .num{font-family:var(--n);font-weight:800;font-size:46px;line-height:1;color:var(--pink-d)}
+.scorebox .t{font-family:var(--d);font-size:24px}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{text-align:left;font-size:18px;font-weight:700;font-family:var(--b);justify-content:flex-start;padding:16px 18px}
+.opt.right{background:#dcf8e8;border-color:#1fa463;box-shadow:0 5px 0 #1fa463}
+.opt.wrong{background:#ffe3e3;border-color:#e5484d;box-shadow:0 5px 0 #e5484d}
+.slots{min-height:66px;border-bottom:3px dashed #d8c3d6;display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;align-content:flex-start}
+.pool{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.tile{font-family:var(--n);font-weight:700;font-size:19px;padding:9px 14px;border-radius:16px;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);color:var(--ink)}
+.tile.used{visibility:hidden}
+.tile.boom{animation:boom .45s forwards}
+@keyframes boom{40%{transform:scale(1.35) rotate(8deg)}100%{transform:scale(0);opacity:0}}
+.c0{background:#ffc2da}.c1{background:#ffd9a8}.c2{background:#bfe6ff}.c3{background:#c8f2d8}.c4{background:#e1d3ff}.c5{background:#fff0a8}
+.blank{display:inline-block;min-width:90px;border-bottom:4px solid var(--pink);text-align:center;color:var(--pink-d);margin:0 4px}
+.mood{text-align:center;padding:16px}
+.mood .e{font-size:64px;animation:bob 1.4s infinite ease-in-out;display:inline-block}
+.mood .t{font-family:var(--d);font-size:26px;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gem{min-height:78px;border-radius:22px;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);font-weight:700;font-size:15px;padding:8px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.3;transition:transform .15s}
+.gem.en{font-family:var(--n);font-size:16px}
+.gem.sel{transform:translateY(-6px) scale(1.06);box-shadow:0 10px 0 var(--ink);outline:4px solid #fff}
+.gem.gone{animation:boom .45s forwards;pointer-events:none}
+.timer{height:14px;border:3px solid var(--ink);border-radius:999px;overflow:hidden;background:#fff}
+.timer div{height:100%;background:linear-gradient(90deg,var(--yellow),var(--peach));transition:width 1s linear}
+.foot{margin-top:14px;padding-bottom:6px}
+.fb{border-radius:22px;padding:14px 16px;border:3px solid var(--ink);margin-bottom:12px;animation:pop .3s}
+.fb.ok{background:#dcf8e8}
+.fb.no{background:#fff1d6}
+.fb b{font-family:var(--d);font-size:22px;font-weight:400;display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:80;transform:translateY(110%);transition:transform .3s cubic-bezier(.2,1.3,.4,1)}
+.sheet.on{transform:none}
+.sheet .card{max-width:480px;margin:0 auto;border-radius:28px 28px 0 0;padding:22px 20px 30px;box-shadow:0 -6px 0 var(--ink)}
+.sheet .wd{font-family:var(--n);font-weight:800;font-size:34px}
+.sheet .ipa{font-family:var(--n);color:var(--lilac-d);font-size:20px}
+.praise{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);z-index:90;font-family:var(--d);font-size:46px;color:#fff;text-shadow:0 4px 0 var(--pink-d),3px 3px 0 var(--pink-d),-3px 3px 0 var(--pink-d);pointer-events:none;animation:praise 1.2s forwards;white-space:nowrap}
+@keyframes praise{0%{transform:translate(-50%,-50%) scale(.2);opacity:0}25%{transform:translate(-50%,-50%) scale(1.15);opacity:1}70%{transform:translate(-50%,-60%) scale(1)}100%{transform:translate(-50%,-90%);opacity:0}}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:95}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;z-index:99;transition:.3s;font-size:14px;pointer-events:none;max-width:90%}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.bigstars{font-size:58px;letter-spacing:6px;text-align:center}
+.bigstars span{display:inline-block;animation:pop .5s backwards;filter:drop-shadow(0 4px 0 #c99400)}
+.bigstars span.off{filter:grayscale(1);opacity:.3}
+.gain{display:flex;gap:12px;align-items:center;margin-top:10px;animation:pop .5s backwards}
+.gain .e{font-size:40px}
+.center{text-align:center}
+.teleprompter{font-family:var(--n);font-weight:700;font-size:24px;line-height:1.4;text-align:center}
+input.name{width:100%;font:inherit;font-size:18px;padding:12px 14px;border-radius:16px;border:3px solid var(--ink);background:#fff;color:var(--ink);outline:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="top">
+    <span class="chip" title="连续打卡">🔥 <span id="tStreak">0</span></span>
+    <span class="chip" title="星星">⭐ <span id="tStars">0</span></span>
+    <span class="chip" title="经验">💎 <span id="tXp">0</span></span>
+    <span class="sp"></span>
+    <button class="chip" id="tSound">🔊</button>
+  </div>
+  <section id="vMap"></section>
+  <section id="vFuture" hidden></section>
+  <section id="vMe" hidden></section>
+  <nav class="tabs">
+    <button data-v="vMap" class="on"><i>🗺️</i>旅程</button>
+    <button data-v="vFuture"><i>✨</i>30天后的我</button>
+    <button data-v="vMe"><i>🎒</i>我的收藏</button>
+  </nav>
+</div>
+
+<div class="ov" id="lesson" hidden><div class="in" id="lessonIn"></div></div>
+<div class="ov" id="result" hidden><div class="in" id="resultIn"></div></div>
+<div class="ov" id="intro" hidden><div class="in" id="introIn"></div></div>
+<div class="sheet" id="sheet"><div class="card" id="sheetIn"></div></div>
+<canvas id="fx"></canvas>
+<div class="toast" id="toast"></div>
+
+<script>/* 口语糖果岛 内容数据（网页版与小程序共用）*/
+var CONTENT = {"STAGES": [{"name": "巴黎咖啡馆", "en": "Paris Café", "icon": "🥐", "color": "#ff8fb8", "to": 6, "read": "phrase", "unlock": "听懂博主嘴边的口头禅", "detail": "坐在街角咖啡馆，邻桌女生说“No way”“Literally”时，你会心一笑。", "from": 1}, {"name": "纽约逛街", "en": "New York", "icon": "🛍️", "color": "#ffa63d", "to": 12, "read": "phrase", "unlock": "和朋友聊天，地道短语脱口而出", "detail": "逛街试衣服，“I'm obsessed”“What a steal”张口就来。", "from": 7}, {"name": "东京旅行", "en": "Tokyo Trip", "icon": "🗼", "color": "#4fb8ff", "to": 18, "read": "phrase", "unlock": "旅行时点餐、问路、聊天不卡壳", "detail": "一个人旅行也不慌，自己问路、点单、和店员聊两句。", "from": 13}, {"name": "伦敦下午茶", "en": "London Tea", "icon": "🫖", "color": "#5ccf7a", "to": 24, "read": "example", "unlock": "一口气说完整句，语调越来越像博主", "detail": "开始读博主原句长度的句子，连读和节奏都更自然。", "from": 19}, {"name": "主角时刻", "en": "Main Character", "icon": "🎬", "color": "#a77bff", "to": 30, "read": "example", "unlock": "拍下你的第一条英文 vlog", "detail": "对着镜头用英语说 30 秒，做自己生活的女主角。", "from": 25}], "LEVELS": [{"id": 1, "stage": 0, "boss": false, "items": [{"en": "Right?", "say": "Right?", "zh": "对吧？（求认同）", "short": "对吧？", "ex": "This view is insane, right?", "exzh": "这风景太绝了，对吧？", "scene": "结尾与口头禅"}, {"en": "Totally", "say": "Totally", "zh": "完全是 / 绝对", "short": "完全是 / 绝对", "ex": "I totally forgot about that.", "exzh": "我完全忘了。", "scene": "结尾与口头禅"}, {"en": "Anyway", "say": "Anyway", "zh": "总之 / 话说回来（转话题）", "short": "总之 / 话说回来", "ex": "Anyway, where was I?", "exzh": "话说，我刚说到哪了？", "scene": "结尾与口头禅"}, {"en": "Same here", "say": "Same here", "zh": "我也是", "short": "我也是", "ex": "Tired? Same here.", "exzh": "累了？我也是。", "scene": "朋友聊天与社交"}, {"en": "Take care", "say": "Take care", "zh": "保重", "short": "保重", "ex": "Take care, everyone.", "exzh": "大家保重。", "scene": "结尾与口头禅"}, {"en": "Haul", "say": "Haul", "zh": "购物分享（一次买的一堆东西）", "short": "购物分享", "ex": "Here's my little grocery haul.", "exzh": "这是我的一小波买菜分享。", "scene": "购物与花钱"}], "tip": {"t": "听不懂先别急着查字幕", "b": "第一遍不开字幕听大意，第二遍开英文字幕找卡住的地方，第三遍关字幕再听。三遍下来，耳朵会记住声音本来的样子。"}}, {"id": 2, "stage": 0, "boss": false, "items": [{"en": "Cram", "say": "Cram", "zh": "临时抱佛脚", "short": "临时抱佛脚", "ex": "I'm cramming for tomorrow's exam.", "exzh": "我在为明天考试临时抱佛脚。", "scene": "工作与学习"}, {"en": "I'm down", "say": "I'm down", "zh": "我可以 / 算我一个", "short": "我可以 / 算我一个", "ex": "Karaoke tonight? I'm down.", "exzh": "今晚 K 歌？算我一个。", "scene": "朋友聊天与社交"}, {"en": "No way", "say": "No way", "zh": "不会吧", "short": "不会吧", "ex": "No way! You're kidding.", "exzh": "不会吧！你开玩笑吧。", "scene": "结尾与口头禅"}, {"en": "Peace out", "say": "Peace out", "zh": "拜拜啦（轻松告别）", "short": "拜拜啦", "ex": "That's all, peace out!", "exzh": "就这些，拜拜！", "scene": "结尾与口头禅"}, {"en": "Low-key", "say": "Low-key", "zh": "低调地 / 有点（口语程度词）", "short": "低调地 / 有点", "ex": "I'm low-key obsessed with this mug.", "exzh": "我有点迷这个杯子。", "scene": "晨间与日常"}, {"en": "Vibes", "say": "Vibes", "zh": "氛围 / 感觉", "short": "氛围 / 感觉", "ex": "This café has such good vibes.", "exzh": "这咖啡店氛围太好了。", "scene": "情绪与感受"}], "tip": {"t": "用 gonna 和 wanna 说话", "b": "口语里 going to 几乎都说成 gonna，want to 说成 wanna。今天跟读时故意这么说，马上像母语者。"}}, {"id": 3, "stage": 0, "boss": false, "items": [{"en": "Slow morning", "say": "Slow morning", "zh": "慢悠悠的早晨", "short": "慢悠悠的早晨", "ex": "Sundays are for slow mornings.", "exzh": "周日就该慢慢过早晨。", "scene": "晨间与日常"}, {"en": "Touch base", "say": "Touch base", "zh": "碰个头 / 沟通一下", "short": "碰个头 / 沟通一下", "ex": "Let's touch base on Friday.", "exzh": "周五我们碰一下。", "scene": "工作与学习"}, {"en": "For real?", "say": "For real?", "zh": "真的假的？", "short": "真的假的？", "ex": "You met him? For real?", "exzh": "你见到他了？真的假的？", "scene": "朋友聊天与社交"}, {"en": "Hot take", "say": "Hot take", "zh": "可能不受欢迎的观点", "short": "可能不受欢迎的观点", "ex": "Hot take: breakfast is overrated.", "exzh": "说个暴论：早餐被高估了。", "scene": "表达观点"}, {"en": "I mean", "say": "I mean", "zh": "我是说（补充解释）", "short": "我是说", "ex": "I mean, it's not bad.", "exzh": "我是说，也不差啦。", "scene": "结尾与口头禅"}, {"en": "Layover", "say": "Layover", "zh": "转机停留", "short": "转机停留", "ex": "We have a six-hour layover in Dubai.", "exzh": "我们在迪拜转机停六小时。", "scene": "旅行与出门"}], "tip": {"t": "记表达，不要只记单词", "b": "\"grab a bite\" 比 \"grab\" 和 \"bite\" 分开记有用得多。整块记住，张口就能用。"}}, {"id": 4, "stage": 0, "boss": false, "items": [{"en": "Sold out", "say": "Sold out", "zh": "卖光了", "short": "卖光了", "ex": "The pink one was sold out.", "exzh": "粉色的卖光了。", "scene": "购物与花钱"}, {"en": "Lock in", "say": "Lock in", "zh": "进入专注模式", "short": "进入专注模式", "ex": "Phone away. Time to lock in.", "exzh": "手机收起来，专注模式开启。", "scene": "工作与学习"}, {"en": "Fall behind", "say": "Fall behind", "zh": "落后 / 进度跟不上", "short": "落后 / 进度跟不上", "ex": "I fell behind on my readings.", "exzh": "阅读任务我落下了。", "scene": "工作与学习"}, {"en": "Catch up", "say": "Catch up", "zh": "叙旧 / 聊聊近况", "short": "叙旧 / 聊聊近况", "ex": "We should catch up over coffee.", "exzh": "我们找时间喝咖啡聊聊。", "scene": "朋友聊天与社交"}, {"en": "Hang out", "say": "Hang out", "zh": "一起玩 / 待着", "short": "一起玩 / 待着", "ex": "Want to hang out this weekend?", "exzh": "周末一起玩吗？", "scene": "朋友聊天与社交"}, {"en": "I'd say", "say": "I'd say", "zh": "我觉得（比 I think 更自然）", "short": "我觉得", "ex": "I'd say it's worth the money.", "exzh": "我觉得值这个价。", "scene": "表达观点"}], "tip": {"t": "影子跟读：慢半拍", "b": "放原音，落后半秒跟着说，像影子一样。不求每个词都对，先跟上节奏和语调。"}}, {"id": 5, "stage": 0, "boss": false, "items": [{"en": "Window seat", "say": "Window seat", "zh": "靠窗座位", "short": "靠窗座位", "ex": "I always book a window seat.", "exzh": "我总订靠窗位。", "scene": "旅行与出门"}, {"en": "Pretty much", "say": "Pretty much", "zh": "差不多", "short": "差不多", "ex": "That's pretty much my whole routine.", "exzh": "我的日常差不多就这些。", "scene": "结尾与口头禅"}, {"en": "Return it", "say": "Return it", "zh": "退货", "short": "退货", "ex": "It didn't fit, so I'm returning it.", "exzh": "不合身，我要退了。", "scene": "购物与花钱"}, {"en": "Fair enough", "say": "Fair enough", "zh": "有道理 / 行吧", "short": "有道理 / 行吧", "ex": "You want to stay in? Fair enough.", "exzh": "你想待家里？也行。", "scene": "朋友聊天与社交"}, {"en": "Pack light", "say": "Pack light", "zh": "轻装出行", "short": "轻装出行", "ex": "I'm trying to pack light this time.", "exzh": "这次想轻装出行。", "scene": "旅行与出门"}, {"en": "Get lost", "say": "Get lost", "zh": "迷路 / 随意走走", "short": "迷路 / 随意走走", "ex": "I love getting lost in old towns.", "exzh": "我喜欢在古镇里随便走。", "scene": "旅行与出门"}], "tip": {"t": "连读第一招：辅音连元音", "b": "前一个词以辅音结尾、后一个词以元音开头，就连起来读：get it 读成 \"ge-tit\"，pick up 读成 \"pi-kup\"。"}}, {"id": 6, "stage": 0, "boss": true, "items": [{"en": "Fun fact", "say": "Fun fact", "zh": "冷知识 / 有趣的是", "short": "冷知识 / 有趣的是", "ex": "Fun fact: I've never actually cooked rice before.", "exzh": "冷知识：我其实从来没煮过米饭。", "scene": "开场与打招呼"}, {"en": "Rain check", "say": "Rain check", "zh": "改天吧", "short": "改天吧", "ex": "Can I take a rain check on dinner?", "exzh": "晚饭能改天吗？", "scene": "朋友聊天与社交"}, {"en": "Local spot", "say": "Local spot", "zh": "本地人常去的地方", "short": "本地人常去的地方", "ex": "Our guide took us to a local spot.", "exzh": "导游带我们去本地人常去的店。", "scene": "旅行与出门"}, {"en": "Healthy-ish", "say": "Healthy-ish", "zh": "算是健康吧（带点自嘲）", "short": "算是健康吧", "ex": "Today's lunch is healthy-ish.", "exzh": "今天午饭勉强算健康。", "scene": "吃饭与点餐"}, {"en": "Overpriced", "say": "Overpriced", "zh": "定价过高", "short": "定价过高", "ex": "It's cute, but overpriced.", "exzh": "好看但太贵了。", "scene": "购物与花钱"}, {"en": "Procrastinate", "say": "Procrastinate", "zh": "拖延", "short": "拖延", "ex": "I procrastinated all morning.", "exzh": "我拖了一上午。", "scene": "工作与学习"}], "tip": {"t": "t 在中间常变成\"d\"", "b": "美式口语里，两个元音之间的 t 会弱化成轻轻的 d：water 像 \"wa-der\"，a lot of 像 \"a-lo-dov\"。"}}, {"id": 7, "stage": 1, "boss": false, "items": [{"en": "Leftovers", "say": "Leftovers", "zh": "剩菜", "short": "剩菜", "ex": "Lunch today is just leftovers.", "exzh": "今天午饭就吃剩菜。", "scene": "吃饭与点餐"}, {"en": "Budget-friendly", "say": "Budget-friendly", "zh": "平价的 / 不贵的", "short": "平价的 / 不贵的", "ex": "Here are some budget-friendly finds.", "exzh": "分享一些平价好物。", "scene": "购物与花钱"}, {"en": "Honestly", "say": "Honestly", "zh": "说实话", "short": "说实话", "ex": "Honestly, I prefer living alone.", "exzh": "说实话，我更喜欢一个人住。", "scene": "表达观点"}, {"en": "Breathtaking", "say": "Breathtaking", "zh": "美得令人窒息", "short": "美得令人窒息", "ex": "The view is absolutely breathtaking.", "exzh": "风景美得窒息。", "scene": "旅行与出门"}, {"en": "Literally", "say": "Literally", "zh": "真的是 / 简直（强调）", "short": "真的是 / 简直", "ex": "I literally can't stop laughing.", "exzh": "我真的笑到停不下来。", "scene": "结尾与口头禅"}, {"en": "Basically", "say": "Basically", "zh": "基本上（口头禅）", "short": "基本上", "ex": "Basically, I just slept all day.", "exzh": "基本上我睡了一整天。", "scene": "结尾与口头禅"}], "tip": {"t": "句子的重音落在实词上", "b": "名词、动词、形容词读重，介词、冠词读轻读快。\"I NEED a COFFee\" 这样一轻一重才自然。"}}, {"id": 8, "stage": 1, "boss": false, "items": [{"en": "Window shopping", "say": "Window shopping", "zh": "只逛不买", "short": "只逛不买", "ex": "We're just window shopping today.", "exzh": "今天我们只逛不买。", "scene": "购物与花钱"}, {"en": "Okay, so...", "say": "Okay, so", "zh": "好，那么……（换话题）", "short": "好，那么……", "ex": "Okay, so, next thing.", "exzh": "好，下一件事。", "scene": "结尾与口头禅"}, {"en": "Snack attack", "say": "Snack attack", "zh": "突然嘴馋", "short": "突然嘴馋", "ex": "Mid-afternoon snack attack.", "exzh": "下午突然嘴馋。", "scene": "吃饭与点餐"}, {"en": "As promised", "say": "As promised", "zh": "说到做到 / 如约而至", "short": "说到做到 / 如约而至", "ex": "As promised, here's the full room tour.", "exzh": "如约奉上完整房间展示。", "scene": "开场与打招呼"}, {"en": "Or whatever", "say": "Or whatever", "zh": "之类的", "short": "之类的", "ex": "We can watch a movie or whatever.", "exzh": "我们可以看电影什么的。", "scene": "结尾与口头禅"}, {"en": "Nailed it", "say": "Nailed it", "zh": "搞定了 / 完美", "short": "搞定了 / 完美", "ex": "The presentation? Nailed it.", "exzh": "那个汇报？完美搞定。", "scene": "工作与学习"}], "tip": {"t": "每天用新表达说一句自己的事", "b": "学完 \"I'm swamped\"，马上说 \"I'm swamped with homework today.\"。和自己有关的句子最难忘。"}}, {"id": 9, "stage": 1, "boss": false, "items": [{"en": "Jet-lagged", "say": "Jet-lagged", "zh": "倒时差中", "short": "倒时差中", "ex": "I'm so jet-lagged, I woke up at 3 a.m.", "exzh": "时差严重，凌晨三点就醒了。", "scene": "旅行与出门"}, {"en": "I'm stoked", "say": "I'm stoked", "zh": "超兴奋", "short": "超兴奋", "ex": "I'm stoked for this weekend.", "exzh": "这周末超期待。", "scene": "情绪与感受"}, {"en": "No worries", "say": "No worries", "zh": "没关系 / 不客气", "short": "没关系 / 不客气", "ex": "No worries, take your time.", "exzh": "没事，慢慢来。", "scene": "朋友聊天与社交"}, {"en": "Home sweet home", "say": "Home sweet home", "zh": "还是家里好", "short": "还是家里好", "ex": "Finally, home sweet home.", "exzh": "终于回家了，还是家里好。", "scene": "旅行与出门"}, {"en": "Catch you later", "say": "Catch you later", "zh": "回头见", "short": "回头见", "ex": "Alright, catch you later!", "exzh": "好啦，回头见！", "scene": "结尾与口头禅"}, {"en": "A go-to", "say": "A go-to", "zh": "常点的 / 拿手的", "short": "常点的 / 拿手的", "ex": "This pasta is my go-to dinner.", "exzh": "这款意面是我晚饭必选。", "scene": "吃饭与点餐"}], "tip": {"t": "别怕口头禅", "b": "you know、I mean、like 给你思考的时间，也让口语更自然。但一句话里别超过一个。"}}, {"id": 10, "stage": 1, "boss": false, "items": [{"en": "Game changer", "say": "Game changer", "zh": "改变游戏规则的好东西 / 神器", "short": "改变游戏规则的好东西 / 神器", "ex": "This vacuum is a game changer.", "exzh": "这台吸尘器是神器。", "scene": "购物与花钱"}, {"en": "I'm swamped", "say": "I'm swamped", "zh": "忙疯了", "short": "忙疯了", "ex": "I'm swamped with work this week.", "exzh": "这周工作忙疯了。", "scene": "工作与学习"}, {"en": "Side hustle", "say": "Side hustle", "zh": "副业", "short": "副业", "ex": "My side hustle is editing videos.", "exzh": "我的副业是剪视频。", "scene": "工作与学习"}, {"en": "It depends", "say": "It depends", "zh": "看情况", "short": "看情况", "ex": "It depends on the weather, really.", "exzh": "其实看天气。", "scene": "表达观点"}, {"en": "Let's do this", "say": "Let's do this", "zh": "冲吧 / 开干", "short": "冲吧 / 开干", "ex": "Coffee's ready. Let's do this.", "exzh": "咖啡好了，开干。", "scene": "开场与打招呼"}, {"en": "Split the bill", "say": "Split the bill", "zh": "AA 分账", "short": "AA 分账", "ex": "Let's just split the bill.", "exzh": "我们 AA 吧。", "scene": "吃饭与点餐"}], "tip": {"t": "用\"自言自语\"练口语", "b": "洗碗、走路时用英语描述你在做什么：\"Now I'm washing the dishes. This mug is so cute.\" 不需要搭档。"}}, {"id": 11, "stage": 1, "boss": false, "items": [{"en": "I needed that", "say": "I needed that", "zh": "我太需要这个了", "short": "我太需要这个了", "ex": "That nap? I needed that.", "exzh": "刚那一觉，太需要了。", "scene": "情绪与感受"}, {"en": "Take a break", "say": "Take a break", "zh": "休息一下", "short": "休息一下", "ex": "Let's take a quick break.", "exzh": "我们休息一下。", "scene": "工作与学习"}, {"en": "Count me in", "say": "Count me in", "zh": "算我一个", "short": "算我一个", "ex": "Road trip? Count me in!", "exzh": "自驾游？算我一个！", "scene": "朋友聊天与社交"}, {"en": "That makes sense", "say": "That makes sense", "zh": "有道理", "short": "有道理", "ex": "Oh, that makes sense now.", "exzh": "哦，现在明白了。", "scene": "表达观点"}, {"en": "Today's agenda", "say": "Today's agenda", "zh": "今天的安排", "short": "今天的安排", "ex": "Today's agenda: laundry, groceries, and a nap.", "exzh": "今日安排：洗衣、买菜、午睡。", "scene": "开场与打招呼"}, {"en": "A rip-off", "say": "A rip-off", "zh": "坑钱 / 太贵", "short": "坑钱 / 太贵", "ex": "Ten dollars for water is a rip-off.", "exzh": "一瓶水十刀，太坑了。", "scene": "购物与花钱"}, {"en": "Splurge on", "say": "Splurge on", "zh": "在……上挥霍一把", "short": "在……上挥霍一把", "ex": "I splurged on a really nice handbag.", "exzh": "我狠心买了个很好的包。", "scene": "购物与花钱"}], "tip": {"t": "录下自己的声音", "b": "用手机录一句，再和原音对比。第一次听自己可能会尴尬，但这是最快发现问题的办法。"}}, {"id": 12, "stage": 1, "boss": true, "items": [{"en": "Impulse buy", "say": "Impulse buy", "zh": "冲动消费", "short": "冲动消费", "ex": "This lamp was a total impulse buy.", "exzh": "这台灯完全是冲动消费。", "scene": "购物与花钱"}, {"en": "Circle back", "say": "Circle back", "zh": "回头再说 / 之后再跟进", "short": "回头再说 / 之后再跟进", "ex": "Can we circle back to this later?", "exzh": "这个我们晚点再说？", "scene": "工作与学习"}, {"en": "Wrap up", "say": "Wrap up", "zh": "收尾", "short": "收尾", "ex": "Let me wrap up this last task.", "exzh": "我把最后一个任务收个尾。", "scene": "工作与学习"}, {"en": "I'm so full", "say": "I'm so full", "zh": "我好撑", "short": "我好撑", "ex": "I'm so full I can't move.", "exzh": "撑到动不了。", "scene": "吃饭与点餐"}, {"en": "It runs small", "say": "It runs small", "zh": "尺码偏小", "short": "尺码偏小", "ex": "These jeans run small, size up.", "exzh": "这牛仔裤偏小，买大一码。", "scene": "购物与花钱"}, {"en": "Break the bank", "say": "Break the bank", "zh": "花很多钱（多用否定）", "short": "花很多钱", "ex": "This outfit won't break the bank.", "exzh": "这套穿搭不贵。", "scene": "购物与花钱"}, {"en": "I'm so done", "say": "I'm so done", "zh": "我受够了", "short": "我受够了", "ex": "I'm so done with this weather.", "exzh": "这天气我受够了。", "scene": "情绪与感受"}], "tip": {"t": "th 要咬舌", "b": "th 发音时舌尖轻放在上下齿之间吹气。think 不是 \"sink\"，this 不是 \"zis\"。对镜子练 10 次。"}}, {"id": 13, "stage": 2, "boss": false, "items": [{"en": "I feel you", "say": "I feel you", "zh": "我懂你", "short": "我懂你", "ex": "I feel you, Mondays are hard.", "exzh": "我懂，周一太难了。", "scene": "朋友聊天与社交"}, {"en": "You're telling me", "say": "You're telling me", "zh": "可不是嘛（强烈同意）", "short": "可不是嘛", "ex": "\"It's so hot.\" \"You're telling me!\"", "exzh": "\"好热啊。\"\"可不是嘛！\"", "scene": "朋友聊天与社交"}, {"en": "Keep me posted", "say": "Keep me posted", "zh": "有消息告诉我", "short": "有消息告诉我", "ex": "Keep me posted on the interview.", "exzh": "面试有消息告诉我。", "scene": "朋友聊天与社交"}, {"en": "Hit the road", "say": "Hit the road", "zh": "出发上路", "short": "出发上路", "ex": "We hit the road at sunrise.", "exzh": "我们日出时出发。", "scene": "旅行与出门"}, {"en": "Missed the train", "say": "Missed the train", "zh": "错过火车", "short": "错过火车", "ex": "We literally just missed the train.", "exzh": "我们就差一点点错过火车。", "scene": "旅行与出门"}, {"en": "Freshen up", "say": "Freshen up", "zh": "简单洗漱一下", "short": "简单洗漱一下", "ex": "Let me freshen up before we head out.", "exzh": "出门前我简单收拾一下。", "scene": "晨间与日常"}, {"en": "Tidy up", "say": "Tidy up", "zh": "收拾整理", "short": "收拾整理", "ex": "I always tidy up before I start working.", "exzh": "开始工作前我总会先收拾一下。", "scene": "晨间与日常"}], "tip": {"t": "学会\"降调\"说陈述句", "b": "中文母语者容易每句都上扬。陈述句结尾往下落：\"I'm so done.\" 语气才笃定。"}}, {"id": 14, "stage": 2, "boss": false, "items": [{"en": "Treat myself", "say": "Treat myself", "zh": "犒劳自己", "short": "犒劳自己", "ex": "I decided to treat myself to new sneakers.", "exzh": "我决定犒劳自己一双新球鞋。", "scene": "购物与花钱"}, {"en": "A steal", "say": "A steal", "zh": "超值 / 白菜价", "short": "超值 / 白菜价", "ex": "Twenty bucks for this coat? What a steal!", "exzh": "这外套才二十刀？太值了！", "scene": "购物与花钱"}, {"en": "Heads up", "say": "Heads up", "zh": "提前通知一下", "short": "提前通知一下", "ex": "Just a heads up, I'll be offline tomorrow.", "exzh": "提前说一声，我明天不在线。", "scene": "工作与学习"}, {"en": "Brain dump", "say": "Brain dump", "zh": "把脑子里的事全写下来", "short": "把脑子里的事全写下来", "ex": "I start every Monday with a brain dump.", "exzh": "每周一我先把脑子里的事全写下来。", "scene": "工作与学习"}, {"en": "That's wild", "say": "That's wild", "zh": "太离谱了 / 太夸张了", "short": "太离谱了 / 太夸张了", "ex": "He quit on the first day? That's wild.", "exzh": "他第一天就辞职？太离谱了。", "scene": "朋友聊天与社交"}, {"en": "Quick life update", "say": "Quick life update", "zh": "近况速报", "short": "近况速报", "ex": "Quick life update: I finally moved out!", "exzh": "近况速报：我终于搬出来住了！", "scene": "开场与打招呼"}, {"en": "Long story short", "say": "Long story short", "zh": "长话短说", "short": "长话短说", "ex": "Long story short, I missed my flight.", "exzh": "长话短说，我误机了。", "scene": "开场与打招呼"}], "tip": {"t": "疑问句不一定升调", "b": "Wh 开头的问题（What / Where / How）结尾通常是降调；Yes/No 问题才升调。"}}, {"id": 15, "stage": 2, "boss": false, "items": [{"en": "Here's the thing", "say": "Here's the thing", "zh": "问题是 / 重点是", "short": "问题是 / 重点是", "ex": "Here's the thing, I actually love Mondays.", "exzh": "重点是，我其实挺喜欢周一。", "scene": "开场与打招呼"}, {"en": "On the go", "say": "On the go", "zh": "在路上 / 忙碌中", "short": "在路上 / 忙碌中", "ex": "I usually eat breakfast on the go.", "exzh": "我通常边走边吃早饭。", "scene": "晨间与日常"}, {"en": "Back to it", "say": "Back to it", "zh": "继续干活", "short": "继续干活", "ex": "Okay, lunch break's over. Back to it.", "exzh": "午休结束，继续干活。", "scene": "晨间与日常"}, {"en": "It's on me", "say": "It's on me", "zh": "我请客", "short": "我请客", "ex": "Put your wallet away, it's on me.", "exzh": "钱包收起来，我请。", "scene": "吃饭与点餐"}, {"en": "I can't even", "say": "I can't even", "zh": "我都不知道说什么了（太离谱）", "short": "我都不知道说什么了", "ex": "This is so cute, I can't even.", "exzh": "太可爱了，无语了。", "scene": "情绪与感受"}, {"en": "Here we go", "say": "Here we go", "zh": "来了来了", "short": "来了来了", "ex": "Here we go, the moment of truth.", "exzh": "来了，见证时刻。", "scene": "结尾与口头禅"}, {"en": "Bucket list", "say": "Bucket list", "zh": "人生愿望清单", "short": "人生愿望清单", "ex": "Seeing the northern lights is on my bucket list.", "exzh": "看极光是我的人生清单之一。", "scene": "旅行与出门"}], "tip": {"t": "看 vlog 比看美剧更适合入门", "b": "vlog 语速慢、话题日常、一个人说话，比多人对话的美剧好跟得多。"}}, {"id": 16, "stage": 2, "boss": false, "items": [{"en": "Come with me", "say": "Come with me", "zh": "跟我来", "short": "跟我来", "ex": "Come with me to get my morning coffee.", "exzh": "跟我去买早上的咖啡。", "scene": "开场与打招呼"}, {"en": "I'm running late", "say": "I'm running late", "zh": "我要迟到了", "short": "我要迟到了", "ex": "I'm running late, so this will be quick.", "exzh": "我快迟到了，所以速战速决。", "scene": "晨间与日常"}, {"en": "Out of it", "say": "Out of it", "zh": "心不在焉 / 迷迷糊糊", "short": "心不在焉 / 迷迷糊糊", "ex": "Sorry, I'm a bit out of it today.", "exzh": "抱歉，今天有点迷糊。", "scene": "情绪与感受"}, {"en": "To be fair", "say": "To be fair", "zh": "公平地说", "short": "公平地说", "ex": "To be fair, it was my first try.", "exzh": "公平地说，这是我第一次尝试。", "scene": "表达观点"}, {"en": "Wind down", "say": "Wind down", "zh": "放松下来（睡前）", "short": "放松下来", "ex": "This is how I wind down after a long day.", "exzh": "这是我忙完一天后放松的方式。", "scene": "晨间与日常"}, {"en": "It's a lot", "say": "It's a lot", "zh": "压力好大 / 事情太多", "short": "压力好大 / 事情太多", "ex": "Moving and work at the same time is a lot.", "exzh": "搬家加上班真的压力好大。", "scene": "情绪与感受"}, {"en": "I'm obsessed", "say": "I'm obsessed", "zh": "我超爱", "short": "我超爱", "ex": "I'm obsessed with this song.", "exzh": "我太爱这首歌了。", "scene": "情绪与感受"}], "tip": {"t": "一天 10 分钟胜过周末 2 小时", "b": "大脑记语言靠频率。每天碰一次，比一次学很久记得牢。这就是打卡的意义。"}}, {"id": 17, "stage": 2, "boss": false, "items": [{"en": "Last-minute trip", "say": "Last-minute trip", "zh": "说走就走的旅行", "short": "说走就走的旅行", "ex": "This was a last-minute trip.", "exzh": "这是一次说走就走的旅行。", "scene": "旅行与出门"}, {"en": "I'm starving", "say": "I'm starving", "zh": "我饿死了", "short": "我饿死了", "ex": "I skipped lunch and I'm starving.", "exzh": "没吃午饭，饿死了。", "scene": "吃饭与点餐"}, {"en": "Mixed feelings", "say": "Mixed feelings", "zh": "心情复杂", "short": "心情复杂", "ex": "I have mixed feelings about leaving.", "exzh": "要走了心情挺复杂。", "scene": "情绪与感受"}, {"en": "Productive day", "say": "Productive day", "zh": "高效的一天", "short": "高效的一天", "ex": "That was such a productive day.", "exzh": "今天效率超高。", "scene": "工作与学习"}, {"en": "I'm craving...", "say": "I'm craving", "zh": "我好想吃……", "short": "我好想吃……", "ex": "I'm craving something sweet.", "exzh": "好想吃甜的。", "scene": "吃饭与点餐"}, {"en": "Not sponsored", "say": "Not sponsored", "zh": "非广告（不是赞助）", "short": "非广告", "ex": "Not sponsored, I just really love it.", "exzh": "不是广告，纯喜欢。", "scene": "购物与花钱"}, {"en": "I'll have the...", "say": "I'll have the", "zh": "我要…… （点餐）", "short": "我要……", "ex": "I'll have the chicken salad, please.", "exzh": "我要鸡肉沙拉，谢谢。", "scene": "吃饭与点餐"}], "tip": {"t": "复习放在睡前", "b": "睡前过一遍今天的 6 句，睡眠会帮你巩固记忆。第二天早上再说一遍。"}}, {"id": 18, "stage": 2, "boss": true, "items": [{"en": "Meal prep", "say": "Meal prep", "zh": "提前备餐", "short": "提前备餐", "ex": "Sunday is my meal prep day.", "exzh": "周日是我备餐日。", "scene": "吃饭与点餐"}, {"en": "Hidden gem", "say": "Hidden gem", "zh": "宝藏地方", "short": "宝藏地方", "ex": "This café is a hidden gem.", "exzh": "这家咖啡店是个宝藏。", "scene": "旅行与出门"}, {"en": "I'm burnt out", "say": "I'm burnt out", "zh": "我身心俱疲", "short": "我身心俱疲", "ex": "I've been burnt out lately.", "exzh": "最近我挺倦怠的。", "scene": "情绪与感受"}, {"en": "Oh my gosh", "say": "Oh my gosh", "zh": "我的天", "short": "我的天", "ex": "Oh my gosh, it's snowing!", "exzh": "我的天，下雪了！", "scene": "结尾与口头禅"}, {"en": "Tourist trap", "say": "Tourist trap", "zh": "坑游客的地方", "short": "坑游客的地方", "ex": "Skip that street, it's a tourist trap.", "exzh": "那条街别去，坑游客的。", "scene": "旅行与出门"}, {"en": "Worth every penny", "say": "Worth every penny", "zh": "每一分都值", "short": "每一分都值", "ex": "This chair was worth every penny.", "exzh": "这椅子每分钱都花得值。", "scene": "购物与花钱"}, {"en": "On a budget", "say": "On a budget", "zh": "预算有限", "short": "预算有限", "ex": "Decorating on a budget is fun.", "exzh": "有限预算装修挺好玩的。", "scene": "购物与花钱"}], "tip": {"t": "学会\"换个说法\"", "b": "想不起某个词，就描述它：忘了 \"pharmacy\"，可以说 \"the place where you buy medicine\"。别卡住。"}}, {"id": 19, "stage": 3, "boss": false, "items": [{"en": "Spill the tea", "say": "Spill the tea", "zh": "快说八卦", "short": "快说八卦", "ex": "Okay, spill the tea. What happened?", "exzh": "快说，发生了什么？", "scene": "朋友聊天与社交"}, {"en": "Not to mention", "say": "Not to mention", "zh": "更别提", "short": "更别提", "ex": "It's cheap, not to mention delicious.", "exzh": "便宜，更别说好吃了。", "scene": "表达观点"}, {"en": "Worth the hype", "say": "Worth the hype", "zh": "名不虚传", "short": "名不虚传", "ex": "The croissant was worth the hype.", "exzh": "这个可颂名不虚传。", "scene": "旅行与出门"}, {"en": "It made my day", "say": "It made my day", "zh": "让我开心一整天", "short": "让我开心一整天", "ex": "Your comment made my day.", "exzh": "你的评论让我开心了一整天。", "scene": "情绪与感受"}, {"en": "It's not that deep", "say": "It's not that deep", "zh": "没那么复杂 / 别想太多", "short": "没那么复杂 / 别想太多", "ex": "Relax, it's not that deep.", "exzh": "放轻松，没那么严重。", "scene": "表达观点"}, {"en": "Kind of / Sort of", "say": "Kind of / Sort of", "zh": "有点 / 算是", "short": "有点 / 算是", "ex": "It's kind of weird, right?", "exzh": "有点怪是吧？", "scene": "结尾与口头禅"}, {"en": "Spoiler alert", "say": "Spoiler alert", "zh": "剧透一下", "short": "剧透一下", "ex": "Spoiler alert: it did not go as planned.", "exzh": "剧透：事情没按计划走。", "scene": "开场与打招呼"}], "tip": {"t": "别逐字翻译", "b": "\"人山人海\" 不要翻成 people mountain people sea，说 \"It's so crowded.\" 先想意思，再找英语怎么说。"}}, {"id": 20, "stage": 3, "boss": false, "items": [{"en": "Not gonna lie", "say": "Not gonna lie", "zh": "说实话（口语缩写 NGL）", "short": "说实话", "ex": "Not gonna lie, I'm a little nervous.", "exzh": "说实话，我有点紧张。", "scene": "开场与打招呼"}, {"en": "A little treat", "say": "A little treat", "zh": "小小犒劳自己", "short": "小小犒劳自己", "ex": "Grabbing a little treat after the gym.", "exzh": "健身完犒劳一下自己。", "scene": "晨间与日常"}, {"en": "Grab a bite", "say": "Grab a bite", "zh": "随便吃点", "short": "随便吃点", "ex": "Want to grab a bite after class?", "exzh": "下课一起去吃点东西？", "scene": "吃饭与点餐"}, {"en": "That's a bummer", "say": "That's a bummer", "zh": "真扫兴 / 太可惜了", "short": "真扫兴 / 太可惜了", "ex": "The museum was closed. That's a bummer.", "exzh": "博物馆关门了，真扫兴。", "scene": "情绪与感受"}, {"en": "Book in advance", "say": "Book in advance", "zh": "提前预订", "short": "提前预订", "ex": "Book in advance, it sells out fast.", "exzh": "要提前订，卖得很快。", "scene": "旅行与出门"}, {"en": "Let's get into it", "say": "Let's get into it", "zh": "我们开始吧", "short": "我们开始吧", "ex": "Enough chit-chat, let's get into it.", "exzh": "不闲聊了，开始吧。", "scene": "开场与打招呼"}, {"en": "It's to die for", "say": "It's to die for", "zh": "好吃到爆", "short": "好吃到爆", "ex": "Their cheesecake is to die for.", "exzh": "他们家芝士蛋糕绝了。", "scene": "吃饭与点餐"}], "tip": {"t": "口语里多用短句", "b": "写作可以长句，说话要短：\"I was tired. So I went home. Long story short, I slept all day.\""}}, {"id": 21, "stage": 3, "boss": false, "items": [{"en": "I've got your back", "say": "I've got your back", "zh": "我挺你", "short": "我挺你", "ex": "Don't worry, I've got your back.", "exzh": "别担心，我挺你。", "scene": "朋友聊天与社交"}, {"en": "Check in / Check out", "say": "Check in / Check out", "zh": "办入住 / 退房", "short": "办入住 / 退房", "ex": "We can check in at three.", "exzh": "三点可以办入住。", "scene": "旅行与出门"}, {"en": "Bear with me", "say": "Bear with me", "zh": "请耐心等我一下", "short": "请耐心等我一下", "ex": "The lighting's weird today, so bear with me.", "exzh": "今天光线很怪，大家多包涵。", "scene": "开场与打招呼"}, {"en": "Run some errands", "say": "Run some errands", "zh": "办点杂事（取快递、买东西等）", "short": "办点杂事", "ex": "I have to run some errands this afternoon.", "exzh": "下午要去办点杂事。", "scene": "晨间与日常"}, {"en": "Explore the area", "say": "Explore the area", "zh": "在附近逛逛", "short": "在附近逛逛", "ex": "Let's drop our bags and explore the area.", "exzh": "放下包去附近逛逛。", "scene": "旅行与出门"}, {"en": "Call it a day", "say": "Call it a day", "zh": "今天就到这儿", "short": "今天就到这儿", "ex": "I'm exhausted, I'm calling it a day.", "exzh": "累坏了，今天就到这。", "scene": "晨间与日常"}, {"en": "Pop in / Pop out", "say": "Pop in / Pop out", "zh": "进去一下 / 出来一下", "short": "进去一下 / 出来一下", "ex": "I'm just gonna pop into the pharmacy.", "exzh": "我进药店一下。", "scene": "晨间与日常"}], "tip": {"t": "用好 actually", "b": "actually 不只是\"实际上\"，还用来温和地纠正或补充：\"Actually, I prefer tea.\" 听起来更礼貌。"}}, {"id": 22, "stage": 3, "boss": false, "items": [{"en": "It's a whole process", "say": "It's a whole process", "zh": "可麻烦了（流程很多）", "short": "可麻烦了", "ex": "Doing my hair is a whole process.", "exzh": "弄头发可是个大工程。", "scene": "晨间与日常"}, {"en": "I'm on cloud nine", "say": "I'm on cloud nine", "zh": "幸福得飘飘然", "short": "幸福得飘飘然", "ex": "I've been on cloud nine all day.", "exzh": "我一整天都美滋滋的。", "scene": "情绪与感受"}, {"en": "It's getting to me", "say": "It's getting to me", "zh": "开始影响我情绪了", "short": "开始影响我情绪了", "ex": "The noise is really getting to me.", "exzh": "噪音让我很烦躁。", "scene": "情绪与感受"}, {"en": "On top of things", "say": "On top of things", "zh": "一切尽在掌握", "short": "一切尽在掌握", "ex": "I finally feel on top of things.", "exzh": "终于感觉一切都在掌控中了。", "scene": "工作与学习"}, {"en": "That's it for today", "say": "That's it for today", "zh": "今天就到这里", "short": "今天就到这里", "ex": "That's it for today, thanks for watching!", "exzh": "今天就到这，谢谢观看！", "scene": "结尾与口头禅"}, {"en": "Add to cart", "say": "Add to cart", "zh": "加购物车", "short": "加购物车", "ex": "I added it to my cart and then forgot.", "exzh": "加了购物车就忘了。", "scene": "购物与花钱"}, {"en": "Learn the ropes", "say": "Learn the ropes", "zh": "熟悉门路 / 上手", "short": "熟悉门路 / 上手", "ex": "I'm still learning the ropes at my new job.", "exzh": "新工作我还在熟悉中。", "scene": "工作与学习"}], "tip": {"t": "回答别只说 Yes", "b": "被问 \"Do you like it?\" 时多说一句：\"Yes, I'm obsessed! It's so cozy.\" 对话就能继续。"}}, {"id": 23, "stage": 3, "boss": false, "items": [{"en": "Catch up on sleep", "say": "Catch up on sleep", "zh": "补觉", "short": "补觉", "ex": "This weekend I'm just catching up on sleep.", "exzh": "这周末我就补觉。", "scene": "晨间与日常"}, {"en": "I'm over the moon", "say": "I'm over the moon", "zh": "开心到飞起", "short": "开心到飞起", "ex": "I got the job, I'm over the moon!", "exzh": "拿到工作了，开心坏了！", "scene": "情绪与感受"}, {"en": "I'm hanging in there", "say": "I'm hanging in there", "zh": "我在坚持 / 还撑得住", "short": "我在坚持 / 还撑得住", "ex": "Exams are tough, but I'm hanging in there.", "exzh": "考试很难，但我撑得住。", "scene": "情绪与感受"}, {"en": "Get the ball rolling", "say": "Get the ball rolling", "zh": "开个头 / 启动", "short": "开个头 / 启动", "ex": "Let's get the ball rolling on this project.", "exzh": "这个项目我们先启动起来。", "scene": "工作与学习"}, {"en": "Let's do this again", "say": "Let's do this again", "zh": "下次再约", "short": "下次再约", "ex": "That was fun, let's do this again soon.", "exzh": "好开心，下次再约。", "scene": "朋友聊天与社交"}, {"en": "I'm all for it", "say": "I'm all for it", "zh": "我完全支持", "short": "我完全支持", "ex": "A four-day work week? I'm all for it.", "exzh": "一周四天工作？我完全支持。", "scene": "表达观点"}, {"en": "On the other hand", "say": "On the other hand", "zh": "另一方面", "short": "另一方面", "ex": "On the other hand, the city is expensive.", "exzh": "另一方面，城市生活很贵。", "scene": "表达观点"}], "tip": {"t": "弱读：and 常读成 \"n\"", "b": "rock and roll 读成 \"rock'n'roll\"，you and me 读成 \"you'n me\"。听不出 and 很正常，是被弱读了。"}}, {"id": 24, "stage": 3, "boss": true, "items": [{"en": "Without further ado", "say": "Without further ado", "zh": "废话不多说", "short": "废话不多说", "ex": "Without further ado, here's what I eat in a day.", "exzh": "废话不多说，这是我一天吃的东西。", "scene": "开场与打招呼"}, {"en": "Get my steps in", "say": "Get my steps in", "zh": "把步数走够", "short": "把步数走够", "ex": "I walk to work to get my steps in.", "exzh": "我走路上班来凑步数。", "scene": "晨间与日常"}, {"en": "It was on sale", "say": "It was on sale", "zh": "打折买的", "short": "打折买的", "ex": "It was on sale, so technically I saved money.", "exzh": "打折买的，严格来说我省钱了。", "scene": "购物与花钱"}, {"en": "That's a good point", "say": "That's a good point", "zh": "说得好", "short": "说得好", "ex": "That's a good point, I hadn't thought of that.", "exzh": "说得好，我没想到。", "scene": "表达观点"}, {"en": "I know, I know", "say": "I know, I know", "zh": "我懂我懂（预先承认观众吐槽）", "short": "我懂我懂", "ex": "I know, I know, I said I'd post last week.", "exzh": "我懂，我说过上周发的。", "scene": "开场与打招呼"}, {"en": "Get ready with me", "say": "Get ready with me", "zh": "跟我一起准备出门（GRWM）", "short": "跟我一起准备出门", "ex": "Get ready with me for my first day at work.", "exzh": "跟我一起准备第一天上班。", "scene": "晨间与日常"}, {"en": "This hits the spot", "say": "This hits the spot", "zh": "这正是我想要的（吃得很满足）", "short": "这正是我想要的", "ex": "Hot soup on a cold day really hits the spot.", "exzh": "冷天喝热汤太满足了。", "scene": "吃饭与点餐"}], "tip": {"t": "can 和 can't 怎么分", "b": "肯定的 can 读得很轻很短 \"kn\"，否定的 can't 读得重而长。听重音就能分辨。"}}, {"id": 25, "stage": 4, "boss": false, "items": [{"en": "Work-life balance", "say": "Work-life balance", "zh": "工作生活平衡", "short": "工作生活平衡", "ex": "I'm still figuring out work-life balance.", "exzh": "我还在摸索工作生活平衡。", "scene": "工作与学习"}, {"en": "If you're new here", "say": "If you're new here", "zh": "如果你是新来的", "short": "如果你是新来的", "ex": "If you're new here, I'm Mia and I talk about slow living.", "exzh": "新来的朋友，我是 Mia，分享慢生活。", "scene": "开场与打招呼"}, {"en": "I'm freaking out", "say": "I'm freaking out", "zh": "我慌了", "short": "我慌了", "ex": "I'm freaking out, my laptop died.", "exzh": "我慌了，电脑没电关机了。", "scene": "情绪与感受"}, {"en": "Whip something up", "say": "Whip something up", "zh": "快速做点吃的", "short": "快速做点吃的", "ex": "Let me whip something up real quick.", "exzh": "我快速做点吃的。", "scene": "吃饭与点餐"}, {"en": "Pull an all-nighter", "say": "Pull an all-nighter", "zh": "熬通宵", "short": "熬通宵", "ex": "I pulled an all-nighter for this essay.", "exzh": "为这篇论文我熬了通宵。", "scene": "工作与学习"}, {"en": "I'm so behind on...", "say": "I'm so behind on", "zh": "……积压了好多", "short": "……积压了好多", "ex": "I'm so behind on laundry.", "exzh": "我的衣服积了一大堆没洗。", "scene": "晨间与日常"}, {"en": "For here or to go?", "say": "For here or to go?", "zh": "堂食还是带走？", "short": "堂食还是带走？", "ex": "For here, thanks.", "exzh": "堂食，谢谢。", "scene": "吃饭与点餐"}], "tip": {"t": "看评论区学表达", "b": "油管评论区全是真实口语。挑 3 条高赞评论，把喜欢的表达抄进本子。"}}, {"id": 26, "stage": 4, "boss": false, "items": [{"en": "It's a game of...", "say": "It's a game of", "zh": "这是一场关于……的较量", "short": "这是一场关于……的较量", "ex": "Saving money is a game of patience.", "exzh": "存钱是一场耐心的较量。", "scene": "表达观点"}, {"en": "Pros and cons", "say": "Pros and cons", "zh": "利弊", "short": "利弊", "ex": "Let's talk about the pros and cons.", "exzh": "我们聊聊利弊。", "scene": "表达观点"}, {"en": "It's a bit bland", "say": "It's a bit bland", "zh": "有点没味", "short": "有点没味", "ex": "It's a bit bland, needs more salt.", "exzh": "有点淡，再加点盐。", "scene": "吃饭与点餐"}, {"en": "I'm on the fence", "say": "I'm on the fence", "zh": "我还在犹豫", "short": "我还在犹豫", "ex": "I'm on the fence about moving abroad.", "exzh": "出国这事我还在犹豫。", "scene": "表达观点"}, {"en": "Hit the snooze button", "say": "Hit the snooze button", "zh": "按掉闹钟再睡一会", "short": "按掉闹钟再睡一会", "ex": "I hit the snooze button three times today.", "exzh": "今天我按了三次贪睡。", "scene": "晨间与日常"}, {"en": "Off the beaten path", "say": "Off the beaten path", "zh": "小众地方 / 人少的路线", "short": "小众地方 / 人少的路线", "ex": "I love finding spots off the beaten path.", "exzh": "我喜欢找小众的地方。", "scene": "旅行与出门"}, {"en": "It's been a minute", "say": "It's been a minute", "zh": "好久不见了（比 long time no see 更地道）", "short": "好久不见了", "ex": "Okay, it's been a minute since my last video.", "exzh": "好吧，距离上个视频已经挺久了。", "scene": "开场与打招呼"}], "tip": {"t": "给自己起个英文场景", "b": "每天想象一个场景（点咖啡、问路、和朋友吐槽），用学过的表达把对话说一遍。"}}, {"id": 27, "stage": 4, "boss": false, "items": [{"en": "Kind of a mood", "say": "Kind of a mood", "zh": "有那种感觉 / 很应景", "short": "有那种感觉 / 很应景", "ex": "Rainy day and a book. Kind of a mood.", "exzh": "雨天加一本书，很有感觉。", "scene": "情绪与感受"}, {"en": "Soak it all in", "say": "Soak it all in", "zh": "好好感受 / 尽情享受", "short": "好好感受 / 尽情享受", "ex": "Let's just sit here and soak it all in.", "exzh": "就坐这儿好好感受一下。", "scene": "旅行与出门"}, {"en": "Not my cup of tea", "say": "Not my cup of tea", "zh": "不是我的菜", "short": "不是我的菜", "ex": "Spicy food isn't really my cup of tea.", "exzh": "辣的不太是我的菜。", "scene": "吃饭与点餐"}, {"en": "The way I see it", "say": "The way I see it", "zh": "在我看来", "short": "在我看来", "ex": "The way I see it, mistakes are lessons.", "exzh": "在我看来，错误就是课程。", "scene": "表达观点"}, {"en": "To be honest with you", "say": "To be honest with you", "zh": "跟你说实话", "short": "跟你说实话", "ex": "To be honest with you, I wasn't impressed.", "exzh": "实话说，我没觉得多好。", "scene": "表达观点"}, {"en": "I'm not a morning person", "say": "I'm not a morning person", "zh": "我不是早起型的人", "short": "我不是早起型的人", "ex": "I'm not a morning person, so coffee comes first.", "exzh": "我不擅长早起，所以先喝咖啡。", "scene": "晨间与日常"}, {"en": "It is what it is", "say": "It is what it is", "zh": "就这样吧 / 认了", "short": "就这样吧 / 认了", "ex": "The trip got cancelled. It is what it is.", "exzh": "旅行取消了，就这样吧。", "scene": "情绪与感受"}], "tip": {"t": "犯错就是进步", "b": "母语者也说错。说出一句不完美的英语，比憋着一句完美的强一百倍。"}}, {"id": 28, "stage": 4, "boss": false, "items": [{"en": "You know what I mean?", "say": "You know what I mean?", "zh": "你懂我意思吧？", "short": "你懂我意思吧？", "ex": "It's cozy but not boring, you know what I mean?", "exzh": "温馨但不无聊，你懂吧？", "scene": "结尾与口头禅"}, {"en": "Deadline is looming", "say": "Deadline is looming", "zh": "截止日期逼近", "short": "截止日期逼近", "ex": "The deadline is looming and I'm panicking.", "exzh": "截止日期快到了，我好慌。", "scene": "工作与学习"}, {"en": "I'm a sucker for...", "say": "I'm a sucker for", "zh": "我对……毫无抵抗力", "short": "我对……毫无抵抗力", "ex": "I'm a sucker for anything with cheese.", "exzh": "只要有芝士我就没抵抗力。", "scene": "吃饭与点餐"}, {"en": "Can I get that to go?", "say": "Can I get that to go?", "zh": "可以打包吗？", "short": "可以打包吗？", "ex": "Can I get that to go?", "exzh": "这个能打包吗？", "scene": "吃饭与点餐"}, {"en": "I could be wrong, but...", "say": "I could be wrong, but", "zh": "我可能说错，但……", "short": "我可能说错，但……", "ex": "I could be wrong, but I think it's closed.", "exzh": "我可能说错，但我觉得关门了。", "scene": "表达观点"}, {"en": "Knock out a few tasks", "say": "Knock out a few tasks", "zh": "速战速决搞定几件事", "short": "速战速决搞定几件事", "ex": "Let me knock out a few emails first.", "exzh": "我先把几封邮件搞定。", "scene": "晨间与日常"}, {"en": "It's been a rough week", "say": "It's been a rough week", "zh": "这周好难熬", "short": "这周好难熬", "ex": "It's been a rough week, not gonna lie.", "exzh": "说实话这周挺难熬。", "scene": "情绪与感受"}], "tip": {"t": "模仿一个你喜欢的博主", "b": "找一个声音和你接近的博主，模仿他说话的速度、停顿和情绪，口语会越来越像一个人。"}}, {"id": 29, "stage": 4, "boss": false, "items": [{"en": "Let's play it by ear", "say": "Let's play it by ear", "zh": "见机行事", "short": "见机行事", "ex": "No plans yet, let's play it by ear.", "exzh": "还没计划，到时候再说。", "scene": "朋友聊天与社交"}, {"en": "Text me when you get home", "say": "Text me when you get home", "zh": "到家给我发消息", "short": "到家给我发消息", "ex": "Text me when you get home, okay?", "exzh": "到家给我发个消息哈。", "scene": "朋友聊天与社交"}, {"en": "I see where you're coming from", "say": "I see where you're coming from", "zh": "我理解你的出发点", "short": "我理解你的出发点", "ex": "I see where you're coming from, but...", "exzh": "我理解你的想法，但是……", "scene": "表达观点"}, {"en": "I've had my eye on this", "say": "I've had my eye on this", "zh": "我看上它很久了", "short": "我看上它很久了", "ex": "I've had my eye on this for months.", "exzh": "这个我惦记好几个月了。", "scene": "购物与花钱"}, {"en": "At the end of the day", "say": "At the end of the day", "zh": "说到底", "short": "说到底", "ex": "At the end of the day, health comes first.", "exzh": "说到底，健康第一。", "scene": "表达观点"}, {"en": "Off the top of my head", "say": "Off the top of my head", "zh": "我随口一想", "short": "我随口一想", "ex": "Off the top of my head, I'd say three.", "exzh": "我随口一说，大概三个。", "scene": "表达观点"}, {"en": "See you in the next one", "say": "See you in the next one", "zh": "下个视频见", "short": "下个视频见", "ex": "Take care and see you in the next one.", "exzh": "保重，下个视频见。", "scene": "结尾与口头禅"}], "tip": {"t": "每周复盘一次", "b": "周末回头看这周的 40 多句，哪些已经能脱口而出？哪些还要再练？标出来重点复习。"}}, {"id": 30, "stage": 4, "boss": true, "items": [{"en": "So today I thought I'd...", "say": "So today I thought I'd", "zh": "所以今天我想着要……（引出当天内容，语气随意）", "short": "所以今天我想着要……", "ex": "So today I thought I'd take you along to my favorite bakery.", "exzh": "今天想带你们去我最爱的面包店。", "scene": "开场与打招呼"}, {"en": "Let me set the scene", "say": "Let me set the scene", "zh": "先交代一下背景", "short": "先交代一下背景", "ex": "Let me set the scene: it's 6 a.m. and it's pouring.", "exzh": "交代一下：早上六点，下着大雨。", "scene": "开场与打招呼"}, {"en": "What have you been up to?", "say": "What have you been up to?", "zh": "最近在忙什么？", "short": "最近在忙什么？", "ex": "Long time no see! What have you been up to?", "exzh": "好久不见！最近忙啥呢？", "scene": "朋友聊天与社交"}, {"en": "Let me know in the comments", "say": "Let me know in the comments", "zh": "在评论区告诉我", "short": "在评论区告诉我", "ex": "Let me know in the comments what you think.", "exzh": "评论区告诉我你的想法。", "scene": "结尾与口头禅"}, {"en": "It was so good to see you", "say": "It was so good to see you", "zh": "见到你真好", "short": "见到你真好", "ex": "It was so good to see you again.", "exzh": "再见到你真开心。", "scene": "朋友聊天与社交"}, {"en": "Hey guys, welcome back to my channel", "say": "Hey guys, welcome back to my channel", "zh": "嗨大家好，欢迎回到我的频道（博主标准开场）", "short": "嗨大家好，欢迎回到我的频道", "ex": "Hey guys, welcome back to my channel, today's a bit of a chaotic one.", "exzh": "嗨大家好，欢迎回来，今天有点手忙脚乱。", "scene": "开场与打招呼"}, {"en": "I've been getting a lot of questions about...", "say": "I've been getting a lot of questions about", "zh": "好多人问我关于……", "short": "好多人问我关于……", "ex": "I've been getting a lot of questions about my skincare.", "exzh": "很多人问我护肤的事。", "scene": "开场与打招呼"}], "tip": {"t": "坚持到第 30 天的你已经不一样了", "b": "再打开一个英语 vlog，你会发现很多句子不用字幕也能听懂。这就是 200 句表达给你的耳朵。"}}], "GLOSS": {"abroad": ["/əˈbrɔːd/", "adv. 在国外"], "absolutely": ["/ˈæbsəluːtli/", "adv. 绝对地；完全"], "ado": ["/əˈduː/", "n. 忙乱；废话（without further ado 废话不多说）"], "advance": ["/ədˈvæns/", "n. 提前（in advance 提前）"], "agenda": ["/əˈdʒendə/", "n. 日程；安排"], "alert": ["/əˈlɜːrt/", "n. 警报；提醒"], "all-nighter": ["/ˌɔːl ˈnaɪtər/", "n. 通宵"], "anyway": ["/ˈeniweɪ/", "adv. 总之；话说回来"], "attack": ["/əˈtæk/", "n. 突然发作（snack attack 突然嘴馋）"], "bakery": ["/ˈbeɪkəri/", "n. 面包店"], "balance": ["/ˈbæləns/", "n. 平衡"], "basically": ["/ˈbeɪsɪkli/", "adv. 基本上"], "bear": ["/ber/", "v. 忍受（bear with me 请耐心点）"], "beaten": ["/ˈbiːtn/", "adj. 被踩出来的（off the beaten path 小众的）"], "bland": ["/blænd/", "adj. 淡而无味的"], "breathtaking": ["/ˈbreθteɪkɪŋ/", "adj. 美得令人屏息的"], "bucket": ["/ˈbʌkɪt/", "n. 桶（bucket list 人生愿望清单）"], "bucks": ["/bʌks/", "n. 美元（口语）"], "budget": ["/ˈbʌdʒɪt/", "n. 预算"], "budget-friendly": ["/ˈbʌdʒɪt ˌfrendli/", "adj. 平价的"], "bummer": ["/ˈbʌmər/", "n. 扫兴的事"], "burnt": ["/bɜːrnt/", "adj. 烧坏的（burnt out 身心俱疲）"], "café": ["/kæˈfeɪ/", "n. 咖啡馆"], "caf": ["/kæˈfeɪ/", "n. 咖啡馆（café）"], "cancelled": ["/ˈkænsld/", "adj. 被取消的"], "cart": ["/kɑːrt/", "n. 购物车"], "changer": ["/ˈtʃeɪndʒər/", "n. 改变者（game changer 神器）"], "channel": ["/ˈtʃænl/", "n. 频道"], "chaotic": ["/keɪˈɑːtɪk/", "adj. 混乱的"], "cheesecake": ["/ˈtʃiːzkeɪk/", "n. 芝士蛋糕"], "chit-chat": ["/ˈtʃɪt tʃæt/", "n. 闲聊"], "circle": ["/ˈsɜːrkl/", "v. 绕回（circle back 回头再说）"], "cons": ["/kɑːnz/", "n. 缺点（pros and cons 利弊）"], "cozy": ["/ˈkoʊzi/", "adj. 温馨舒适的"], "cram": ["/kræm/", "v. 临时抱佛脚"], "cramming": ["/ˈkræmɪŋ/", "v. 临时抱佛脚（cram 进行时）"], "craving": ["/ˈkreɪvɪŋ/", "v. 渴望（吃）"], "croissant": ["/krəˈsɑːnt/", "n. 可颂；牛角面包"], "deadline": ["/ˈdedlaɪn/", "n. 截止日期"], "decorating": ["/ˈdekəreɪtɪŋ/", "v. 装修；布置"], "delicious": ["/dɪˈlɪʃəs/", "adj. 美味的"], "depends": ["/dɪˈpendz/", "v. 取决于"], "dump": ["/dʌmp/", "n. 倾倒（brain dump 把想法全写下来）"], "ear": ["/ɪr/", "n. 耳朵（play it by ear 见机行事）"], "editing": ["/ˈedɪtɪŋ/", "v. 剪辑；编辑"], "errands": ["/ˈerəndz/", "n. 杂事；差事"], "essay": ["/ˈeseɪ/", "n. 论文；文章"], "exhausted": ["/ɪɡˈzɔːstɪd/", "adj. 精疲力尽的"], "explore": ["/ɪkˈsplɔːr/", "v. 探索；逛"], "fence": ["/fens/", "n. 篱笆（on the fence 犹豫不决）"], "figuring": ["/ˈfɪɡjərɪŋ/", "v. 弄明白（figure out）"], "freaking": ["/ˈfriːkɪŋ/", "v. 慌张（freak out 吓坏了）"], "freshen": ["/ˈfreʃn/", "v. 使清新（freshen up 洗漱一下）"], "gem": ["/dʒem/", "n. 宝石（hidden gem 宝藏地方）"], "gonna": ["/ˈɡʌnə/", "= going to（口语）"], "gosh": ["/ɡɑːʃ/", "int. 天哪"], "go-to": ["/ˈɡoʊ tuː/", "adj. 首选的；常用的"], "grab": ["/ɡræb/", "v. 抓；随手拿（grab a bite 随便吃点）"], "groceries": ["/ˈɡroʊsəriz/", "n. 食品杂货"], "grocery": ["/ˈɡroʊsəri/", "n. 食品杂货店"], "handbag": ["/ˈhændbæɡ/", "n. 手提包"], "haul": ["/hɔːl/", "n. 一次买的一堆东西；购物分享"], "healthy-ish": ["/ˈhelθi ɪʃ/", "adj. 还算健康的"], "heads": ["/hedz/", "n. （heads up 提前提醒）"], "hidden": ["/ˈhɪdn/", "adj. 隐藏的"], "honestly": ["/ˈɑːnɪstli/", "adv. 说实话"], "hustle": ["/ˈhʌsl/", "n. 忙碌（side hustle 副业）"], "hype": ["/haɪp/", "n. 炒作；热度"], "impressed": ["/ɪmˈprest/", "adj. 印象深刻的"], "impulse": ["/ˈɪmpʌls/", "n. 冲动"], "insane": ["/ɪnˈseɪn/", "adj. 疯狂的；（口语）太绝了"], "interview": ["/ˈɪntərvjuː/", "n. 面试"], "jeans": ["/dʒiːnz/", "n. 牛仔裤"], "jet-lagged": ["/ˈdʒet læɡd/", "adj. 有时差反应的"], "karaoke": ["/ˌkæriˈoʊki/", "n. 卡拉OK"], "kidding": ["/ˈkɪdɪŋ/", "v. 开玩笑"], "knock": ["/nɑːk/", "v. 敲（knock out 快速搞定）"], "lamp": ["/læmp/", "n. 灯"], "laptop": ["/ˈlæptɑːp/", "n. 笔记本电脑"], "last-minute": ["/ˌlæst ˈmɪnɪt/", "adj. 临时的；最后一刻的"], "laundry": ["/ˈlɔːndri/", "n. 要洗的衣服"], "layover": ["/ˈleɪoʊvər/", "n. 转机停留"], "leftovers": ["/ˈleftoʊvərz/", "n. 剩饭剩菜"], "literally": ["/ˈlɪtərəli/", "adv. 真的；简直"], "looming": ["/ˈluːmɪŋ/", "adj. 逼近的"], "low-key": ["/ˌloʊ ˈkiː/", "adv. 有点；暗戳戳地"], "meal": ["/miːl/", "n. 一餐"], "mention": ["/ˈmenʃn/", "v. 提到（not to mention 更别提）"], "mid-afternoon": ["/ˌmɪd æftərˈnuːn/", "n. 下午三四点"], "minute": ["/ˈmɪnɪt/", "n. 分钟（it's been a minute 好久了）"], "mixed": ["/mɪkst/", "adj. 混合的；复杂的"], "mood": ["/muːd/", "n. 心情；（口语）很有感觉"], "mug": ["/mʌɡ/", "n. 马克杯"], "museum": ["/mjuˈziːəm/", "n. 博物馆"], "nailed": ["/neɪld/", "v. 搞定（nail it 做得完美）"], "nervous": ["/ˈnɜːrvəs/", "adj. 紧张的"], "northern": ["/ˈnɔːrðərn/", "adj. 北方的（northern lights 极光）"], "obsessed": ["/əbˈsest/", "adj. 着迷的"], "offline": ["/ˌɔːfˈlaɪn/", "adj. 离线的"], "outfit": ["/ˈaʊtfɪt/", "n. 一套衣服；穿搭"], "overpriced": ["/ˌoʊvərˈpraɪst/", "adj. 定价过高的"], "overrated": ["/ˌoʊvərˈreɪtɪd/", "adj. 被高估的"], "panicking": ["/ˈpænɪkɪŋ/", "v. 惊慌（panic 进行时）"], "pasta": ["/ˈpɑːstə/", "n. 意大利面"], "patience": ["/ˈpeɪʃns/", "n. 耐心"], "penny": ["/ˈpeni/", "n. 一分钱"], "pharmacy": ["/ˈfɑːrməsi/", "n. 药店"], "pouring": ["/ˈpɔːrɪŋ/", "v. 倾盆而下（下大雨）"], "prep": ["/prep/", "n. 准备（meal prep 备餐）"], "presentation": ["/ˌpreznˈteɪʃn/", "n. 演示；汇报"], "procrastinate": ["/proʊˈkræstɪneɪt/", "v. 拖延"], "procrastinated": ["/proʊˈkræstɪneɪtɪd/", "v. 拖延（过去式）"], "productive": ["/prəˈdʌktɪv/", "adj. 高效的"], "pros": ["/proʊz/", "n. 优点"], "quit": ["/kwɪt/", "v. 辞职；放弃"], "readings": ["/ˈriːdɪŋz/", "n. 阅读材料"], "relax": ["/rɪˈlæks/", "v. 放松"], "rip-off": ["/ˈrɪp ɔːf/", "n. 宰客；太贵的东西"], "ropes": ["/roʊps/", "n. 绳子（learn the ropes 熟悉门路）"], "rough": ["/rʌf/", "adj. 艰难的"], "routine": ["/ruːˈtiːn/", "n. 日常惯例"], "salad": ["/ˈsæləd/", "n. 沙拉"], "scene": ["/siːn/", "n. 场景"], "skincare": ["/ˈskɪnker/", "n. 护肤"], "sneakers": ["/ˈsniːkərz/", "n. 运动鞋"], "snooze": ["/snuːz/", "n. 小睡（snooze button 贪睡键）"], "soak": ["/soʊk/", "v. 浸泡（soak it all in 好好感受）"], "spicy": ["/ˈspaɪsi/", "adj. 辣的"], "spill": ["/spɪl/", "v. 洒出（spill the tea 爆料八卦）"], "splurge": ["/splɜːrdʒ/", "v. 挥霍"], "splurged": ["/splɜːrdʒd/", "v. 挥霍（过去式）"], "spoiler": ["/ˈspɔɪlər/", "n. 剧透"], "sponsored": ["/ˈspɑːnsərd/", "adj. 赞助的；广告的"], "starving": ["/ˈstɑːrvɪŋ/", "adj. 饿极了"], "steal": ["/stiːl/", "n. （口语）超值的东西"], "stoked": ["/stoʊkt/", "adj. 超兴奋的"], "sucker": ["/ˈsʌkər/", "n. 对……没抵抗力的人"], "sunrise": ["/ˈsʌnraɪz/", "n. 日出"], "swamped": ["/swɑːmpt/", "adj. 忙得不可开交"], "technically": ["/ˈteknɪkli/", "adv. 严格来说"], "tidy": ["/ˈtaɪdi/", "v. 收拾整理"], "tourist": ["/ˈtʊrɪst/", "n. 游客"], "trap": ["/træp/", "n. 陷阱（tourist trap 坑游客的地方）"], "treat": ["/triːt/", "n./v. 犒劳；款待"], "vacuum": ["/ˈvækjuːm/", "n. 吸尘器"], "vibes": ["/vaɪbz/", "n. 氛围；感觉"], "wallet": ["/ˈwɑːlɪt/", "n. 钱包"], "weird": ["/wɪrd/", "adj. 奇怪的"], "whip": ["/wɪp/", "v. 快速做出（whip up）"], "wild": ["/waɪld/", "adj. 离谱的；疯狂的"], "wind": ["/waɪnd/", "v. 放松下来（wind down）"], "work-life": ["/ˌwɜːrk ˈlaɪf/", "adj. 工作与生活的"], "worries": ["/ˈwɜːriz/", "n. 担心（no worries 没关系）"], "wrap": ["/ræp/", "v. 包裹（wrap up 收尾）"]}, "MOODS": [{"e": "😆", "t": "开心到飞起", "rate": 1.1, "pitch": 1.6}, {"e": "🤫", "t": "说悄悄话", "rate": 0.85, "pitch": 1.0, "vol": 0.35}, {"e": "🤖", "t": "像个机器人", "rate": 0.7, "pitch": 0.3}, {"e": "😴", "t": "刚刚睡醒", "rate": 0.62, "pitch": 0.8}, {"e": "🎙️", "t": "像新闻主播", "rate": 0.92, "pitch": 1.0}, {"e": "😤", "t": "有点小生气", "rate": 1.15, "pitch": 0.85}, {"e": "🥺", "t": "撒个娇", "rate": 0.88, "pitch": 1.7}, {"e": "🕵️", "t": "神秘侦探", "rate": 0.8, "pitch": 0.7}], "GRAD": ["Hey guys, welcome back to my channel.", "Quick life update: I'm learning English!", "Not gonna lie, it was hard at first.", "But honestly, I'm obsessed now.", "Let me know in the comments what you think.", "Take care, and see you in the next one."], "GRADZH": ["嗨大家好，欢迎回到我的频道。", "近况速报：我在学英语！", "说实话，一开始挺难的。", "但现在我真的超爱。", "在评论区告诉我你们的想法吧。", "保重，下期见！"]};
+if (typeof module !== "undefined") module.exports = CONTENT;
+</script>
+<script>/* 口语糖果岛 游戏逻辑（网页版与小程序共用，不依赖 DOM / wx）*/
+(function (root) {
+  var C = (typeof module !== 'undefined' && typeof require !== 'undefined') ? require('./content.js') : root.CONTENT;
+
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function words(s) { return (s.match(/[A-Za-z0-9][A-Za-z0-9'’\-]*/g) || []); }
+  function norm(w) { return w.toLowerCase().replace(/[^a-z0-9]/g, ''); }
+  var NUM = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+  var STOP = ['that\'s', 'the', 'you', 'i\'m', 'it\'s', 'this', 'and', 'for', 'with', 'are', 'was', 'can', 'let\'s', 'what', 'have', 'been', 'your', 'just', 'get', 'got'];
+  // 打分用的分词：连字符拆开、a.m. 合并、数字转英文
+  function spoken(s) {
+    s = (s || '').replace(/\b([ap])\.m\./gi, '$1m').replace(/-/g, ' ');
+    return words(s).map(norm).filter(Boolean).map(function (w) { return /^\d+$/.test(w) && +w <= 20 ? NUM[+w] : w; });
+  }
+  function pick(a, n) { return shuffle(a).slice(0, n); }
+
+  function level(id) { return C.LEVELS[id - 1]; }
+  function stage(id) { return C.STAGES[level(id).stage]; }
+  // 前几段读短语，后两段读完整原句
+  function readText(lv, it) { return C.STAGES[lv.stage].read === 'example' ? it.ex : it.say; }
+
+  function sameStageItems(lv) {
+    var out = [];
+    C.LEVELS.forEach(function (l) { if (l.stage === lv.stage && l.id !== lv.id) out = out.concat(l.items); });
+    return out;
+  }
+
+  function buildTarget(lv, it) {
+    var st = lv.stage;
+    var pw = words(it.say), ew = words(it.ex);
+    if (st <= 1) return pw.length >= 2 ? it.say : (ew.length <= 7 ? it.ex : null);
+    var lim = st === 2 ? 7 : 9;
+    if (ew.length <= lim) return it.ex;
+    return pw.length >= 2 ? it.say : null;
+  }
+
+  function fillQuestion(lv, it, pool) {
+    var pw = words(it.say).map(norm);
+    var ew = words(it.ex);
+    var cand = ew.filter(function (w) { return pw.indexOf(norm(w)) >= 0 && norm(w).length >= 3 && STOP.indexOf(w.toLowerCase().replace(/’/g, "'")) < 0; });
+    if (!cand.length) return null;
+    cand.sort(function (a, b) { return b.length - a.length; });
+    var ans = cand[0];
+    var others = [];
+    pool.forEach(function (o) { words(o.say).forEach(function (w) { if (norm(w).length >= 3 && STOP.indexOf(w.toLowerCase()) < 0 && norm(w) !== norm(ans) && others.indexOf(w.toLowerCase()) < 0) others.push(w.toLowerCase()); }); });
+    var opts = shuffle([ans].concat(pick(others, 2)));
+    var idx = it.ex.indexOf(ans);
+    return { type: 'fill', item: it, before: it.ex.slice(0, idx), after: it.ex.slice(idx + ans.length), answer: ans, options: opts };
+  }
+
+  // 一关的步骤：先逐句学习跟读，再进入混合小游戏
+  function buildSteps(id) {
+    var lv = level(id), items = lv.items, st = lv.stage;
+    var pool = sameStageItems(lv);
+    var steps = items.map(function (it) { return { type: 'learn', item: it, text: readText(lv, it) }; });
+    var games = [];
+    pick(items, Math.min(3, items.length)).forEach(function (it) {
+      var wrong = pick(pool.concat(items.filter(function (x) { return x !== it; })), 8)
+        .map(function (x) { return x.short; }).filter(function (z) { return z !== it.short; });
+      var uniq = []; wrong.forEach(function (z) { if (uniq.indexOf(z) < 0) uniq.push(z); });
+      games.push({ type: 'choose', item: it, text: st >= 3 ? it.ex : it.say, answer: it.short, options: shuffle([it.short].concat(uniq.slice(0, 2))) });
+    });
+    var nb = 0;
+    shuffle(items).forEach(function (it) {
+      if (nb >= 2) return;
+      var t = buildTarget(lv, it); if (!t) return;
+      var ws = words(t); if (ws.length < 2) return;
+      nb++;
+      games.push({ type: 'build', item: it, text: t, answer: ws, tiles: shuffle(ws.map(function (w, i) { return { w: w, i: i }; })) });
+    });
+    var nf = st === 0 ? 1 : 2, cf = 0;
+    shuffle(items).forEach(function (it) {
+      if (cf >= nf) return;
+      var q = fillQuestion(lv, it, pool); if (q) { games.push(q); cf++; }
+    });
+    var actIt = pick(items, 1)[0];
+    games.push({ type: 'act', item: actIt, text: readText(lv, actIt), mood: pick(C.MOODS, 1)[0] });
+    // 压轴：糖果消消乐，英文和中文配对消除
+    var pairs = pick(items, Math.min(6, items.length));
+    var tiles = [];
+    pairs.forEach(function (it, k) { tiles.push({ k: k, lang: 'en', t: it.say }); tiles.push({ k: k, lang: 'zh', t: it.short }); });
+    return steps.concat(shuffle(games)).concat([{ type: 'match', items: pairs, tiles: shuffle(tiles), seconds: 60 }]);
+  }
+
+  // 跟读打分：按单词做最长公共子序列对齐
+  function score(target, heard) {
+    var a = spoken(target), b = spoken(heard);
+    var n = a.length, m = b.length, dp = [];
+    for (var i = 0; i <= n; i++) { dp.push([]); for (var j = 0; j <= m; j++) dp[i].push(0); }
+    for (i = n - 1; i >= 0; i--) for (j = m - 1; j >= 0; j--)
+      dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+    var marks = [], x = 0, y = 0;
+    while (x < n) {
+      if (y < m && a[x] === b[y]) { marks.push(true); x++; y++; }
+      else if (y < m && dp[x][y + 1] >= dp[x + 1][y]) y++;
+      else { marks.push(false); x++; }
+    }
+    var hit = marks.filter(Boolean).length;
+    var s = n ? Math.round(hit / n * 100) : 0;
+    if (s > 0 && s < 40) s = 40; // 敢开口就有底分
+    return { score: s, marks: marks };
+  }
+  function verdict(s) {
+    if (s >= 85) return { tier: 3, title: '完美！', say: ['发音超地道！', '简直是母语者！', '这句你拿捏了！'] };
+    if (s >= 60) return { tier: 2, title: '很棒！', say: ['再顺一点就完美啦', '已经很像博主了！', '节奏对了！'] };
+    return { tier: 1, title: '差一点点', say: ['慢一点再试一次？', '先听一遍慢速版吧', '敢开口就是进步！'] };
+  }
+  function starsFor(speakAvg, gameAcc) {
+    var b = speakAvg * 0.6 + gameAcc * 100 * 0.4;
+    return b >= 80 ? 3 : b >= 55 ? 2 : 1;
+  }
+
+  var BADGES = [
+    { id: 'first', e: '🐣', t: '破壳而出', d: '完成第 1 关' },
+    { id: 'streak3', e: '🔥', t: '三天小火苗', d: '连续打卡 3 天' },
+    { id: 'streak7', e: '🌋', t: '一周不断火', d: '连续打卡 7 天' },
+    { id: 'perfect10', e: '💯', t: '满分十连', d: '累计 10 次跟读满分' },
+    { id: 'combo8', e: '⚡', t: '连击达人', d: '游戏连对 8 次' },
+    { id: 'look20', e: '🔍', t: '好奇宝宝', d: '点查 20 个单词' },
+    { id: 'star3x5', e: '🌟', t: '三星收藏家', d: '5 关拿到三星' },
+    { id: 'actor', e: '🎭', t: '戏精本精', d: '完成 5 次演技挑战' },
+    { id: 'half', e: '🚀', t: '半程冲刺', d: '通关第 15 关' },
+    { id: 'grad', e: '🎓', t: '糖果岛毕业生', d: '通关全部 30 关' }
+  ];
+  // 每段旅程的最后一关（宝箱关）盖一枚护照印章
+  var STICKERS = [
+    { e: '🥐', t: '巴黎印章' }, { e: '🛍️', t: '纽约印章' }, { e: '🗼', t: '东京印章' }, { e: '🫖', t: '伦敦印章' }, { e: '🎬', t: '主角印章' }
+  ];
+
+  function today(d) { d = d || new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+  function dayDiff(a, b) { var pa = a.split('-'), pb = b.split('-'); return Math.round((new Date(pb[0], pb[1] - 1, pb[2]) - new Date(pa[0], pa[1] - 1, pa[2])) / 864e5); }
+
+  function newState() {
+    return { v: 3, lv: {}, xp: 0, streak: 0, last: '', todayXp: 0, todayDate: '', goal: 30, speaks: 0, perfect: 0, looked: 0, acts: 0, bestCombo: 0, badges: [], stickers: [], tips: [], name: '', intro: false, grad: false };
+  }
+  function touchDay(s) {
+    var t = today();
+    if (s.todayDate !== t) { s.todayDate = t; s.todayXp = 0; }
+    return s;
+  }
+  function addXp(s, n) { touchDay(s); s.xp += n; s.todayXp += n; }
+  function streakAlive(s) { return s.last && dayDiff(s.last, today()) <= 1 ? s.streak : 0; }
+  function nextLevel(s) { for (var i = 1; i <= 30; i++) if (!s.lv[i]) return i; return 30; }
+  function unlocked(s, id) { return id === 1 || !!s.lv[id - 1] || !!s.lv[id]; }
+  function totalStars(s) { var n = 0; for (var k in s.lv) n += s.lv[k].stars; return n; }
+  function doneCount(s) { return Object.keys(s.lv).length; }
+
+  // 通关结算，返回新得的徽章、贴纸、能力
+  function finishLevel(s, id, stars, info) {
+    touchDay(s);
+    var first = !s.lv[id];
+    var prev = s.lv[id] ? s.lv[id].stars : 0;
+    s.lv[id] = { stars: Math.max(prev, stars) };
+    var t = today();
+    if (s.last !== t) { s.streak = (s.last && dayDiff(s.last, t) === 1) ? s.streak + 1 : 1; s.last = t; }
+    if (info && info.combo > s.bestCombo) s.bestCombo = info.combo;
+    if (info && info.act) s.acts++;
+    var gain = { badges: [], sticker: null, ability: null, xp: 0 };
+    var xp = 10 + stars * 5 + (first ? 10 : 0);
+    addXp(s, xp); gain.xp = xp;
+    var lv = level(id);
+    if (first && lv.boss) {
+      var stk = STICKERS[lv.stage];
+      if (s.stickers.indexOf(lv.stage) < 0) { s.stickers.push(lv.stage); gain.sticker = stk; gain.ability = C.STAGES[lv.stage]; }
+    }
+    var three = 0; for (var k in s.lv) if (s.lv[k].stars === 3) three++;
+    var cond = {
+      first: doneCount(s) >= 1, streak3: s.streak >= 3, streak7: s.streak >= 7, perfect10: s.perfect >= 10,
+      combo8: s.bestCombo >= 8, look20: s.looked >= 20, star3x5: three >= 5, actor: s.acts >= 5, half: !!s.lv[15], grad: doneCount(s) >= 30
+    };
+    BADGES.forEach(function (b) { if (cond[b.id] && s.badges.indexOf(b.id) < 0) { s.badges.push(b.id); gain.badges.push(b); } });
+    return gain;
+  }
+
+  var E = {
+    C: C, shuffle: shuffle, words: words, norm: norm, level: level, stage: stage, buildSteps: buildSteps,
+    score: score, spoken: spoken, verdict: verdict, starsFor: starsFor, BADGES: BADGES, STICKERS: STICKERS,
+    today: today, newState: newState, touchDay: touchDay, addXp: addXp, streakAlive: streakAlive,
+    nextLevel: nextLevel, unlocked: unlocked, totalStars: totalStars, doneCount: doneCount, finishLevel: finishLevel
+  };
+  if (typeof module !== 'undefined') module.exports = E; else root.Engine = E;
+})(this);
+</script>
+<script>/* 吉祥物「糖豆」：一只圆滚滚的小熊软糖，mood 控制表情 */
+(function (root) {
+  var INK = '#4a2c45';
+  function eyes(m) {
+    var L = 74, R = 126, Y = 104;
+    if (m === 'cheer') return '<path d="M62 106 Q74 92 86 106" stroke="' + INK + '" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M114 106 Q126 92 138 106" stroke="' + INK + '" stroke-width="6" fill="none" stroke-linecap="round"/>';
+    if (m === 'sleep') return '<path d="M64 106 Q74 112 84 106" stroke="' + INK + '" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M116 106 Q126 112 136 106" stroke="' + INK + '" stroke-width="5" fill="none" stroke-linecap="round"/><text x="150" y="58" font-size="26" font-weight="700" fill="#8a6fd1" font-family="sans-serif">z</text><text x="166" y="40" font-size="18" font-weight="700" fill="#8a6fd1" font-family="sans-serif">z</text>';
+    if (m === 'love') {
+      var h = function (x) { return '<path transform="translate(' + (x - 12) + ',' + (Y - 12) + ')" d="M12 22 C2 14 0 8 4 4 C8 0 12 3 12 6 C12 3 16 0 20 4 C24 8 22 14 12 22Z" fill="#ff3d7f" stroke="' + INK + '" stroke-width="2.5"/>'; };
+      return h(L) + h(R);
+    }
+    var ry = m === 'wow' ? 16 : 13, rx = m === 'wow' ? 12 : 10, dy = m === 'think' ? -4 : 0, dx = m === 'think' ? 4 : 0;
+    var e = function (x) {
+      return '<ellipse cx="' + x + '" cy="' + Y + '" rx="' + rx + '" ry="' + ry + '" fill="#3a2238"/>' +
+        '<circle cx="' + (x - 3 + dx) + '" cy="' + (Y - 5 + dy) + '" r="' + (m === 'wow' ? 5.5 : 4.5) + '" fill="#fff"/>' +
+        '<circle cx="' + (x + 4 + dx) + '" cy="' + (Y + 5 + dy) + '" r="2" fill="#fff"/>';
+    };
+    return e(L) + e(R);
+  }
+  function mouth(m) {
+    if (m === 'wow') return '<ellipse cx="100" cy="130" rx="9" ry="11" fill="#c2306a" stroke="' + INK + '" stroke-width="4"/>';
+    if (m === 'cheer' || m === 'love') return '<path d="M84 122 Q100 146 116 122 Z" fill="#c2306a" stroke="' + INK + '" stroke-width="4" stroke-linejoin="round"/><path d="M92 132 Q100 140 108 132" fill="#ff8fb3"/>';
+    if (m === 'think') return '<path d="M92 128 Q100 124 108 128" stroke="' + INK + '" stroke-width="4.5" fill="none" stroke-linecap="round"/>';
+    if (m === 'sleep') return '<ellipse cx="100" cy="128" rx="5" ry="4" fill="#c2306a"/>';
+    return '<path d="M88 122 Q100 136 112 122" stroke="' + INK + '" stroke-width="4.5" fill="#c2306a" stroke-linecap="round" stroke-linejoin="round"/>';
+  }
+  function arms(m) {
+    if (m === 'cheer') return '<ellipse cx="34" cy="80" rx="12" ry="20" transform="rotate(-30 34 80)" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/><ellipse cx="166" cy="80" rx="12" ry="20" transform="rotate(30 166 80)" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/>';
+    if (m === 'think') return '<ellipse cx="40" cy="138" rx="12" ry="18" transform="rotate(20 40 138)" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/><ellipse cx="146" cy="140" rx="11" ry="16" transform="rotate(-50 146 140)" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/>';
+    return '<ellipse cx="36" cy="132" rx="12" ry="18" transform="rotate(25 36 132)" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/><ellipse cx="164" cy="132" rx="12" ry="18" transform="rotate(-25 164 132)" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/>';
+  }
+  function extra(m) {
+    if (m === 'think') return '<text x="150" y="62" font-size="34" font-weight="800" fill="#ffa63d" stroke="' + INK + '" stroke-width="2" font-family="sans-serif">?</text>';
+    if (m === 'wow') return '<path d="M160 40 l4 10 10 2 -8 7 2 10 -8 -5 -8 5 2 -10 -8 -7 10 -2z" fill="#ffd23f" stroke="' + INK + '" stroke-width="2.5"/>';
+    if (m === 'love') return '<path transform="translate(150 30) scale(.9)" d="M12 22 C2 14 0 8 4 4 C8 0 12 3 12 6 C12 3 16 0 20 4 C24 8 22 14 12 22Z" fill="#ff7aa8" stroke="' + INK + '" stroke-width="2.5"/>';
+    return '';
+  }
+  var uid = 0, gid = 'tdg';
+  function mascot(m, size) {
+    m = m || 'happy'; size = size || 120;
+    gid = 'tdg' + (++uid);
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="' + size + '" height="' + size + '">' +
+      '<defs><radialGradient id="' + gid + '" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ffe3ee"/><stop offset="1" stop-color="#ff9cc4"/></radialGradient></defs>' +
+      '<ellipse cx="100" cy="186" rx="56" ry="8" fill="#000" opacity=".12"/>' +
+      '<circle cx="52" cy="60" r="19" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/><circle cx="52" cy="60" r="9" fill="#ff7aa8"/>' +
+      '<circle cx="148" cy="60" r="19" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/><circle cx="148" cy="60" r="9" fill="#ff7aa8"/>' +
+      arms(m) +
+      '<path d="M100 44 C150 44 172 80 172 116 C172 158 140 180 100 180 C60 180 28 158 28 116 C28 80 50 44 100 44Z" fill="url(#' + gid + ')" stroke="' + INK + '" stroke-width="5"/>' +
+      '<ellipse cx="100" cy="150" rx="38" ry="22" fill="#fff4f8" opacity=".9"/>' +
+      '<path d="M98 46 Q92 26 104 18" stroke="' + INK + '" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M104 22 Q124 12 128 28 Q112 34 104 22Z" fill="#6fd68b" stroke="' + INK + '" stroke-width="3.5"/>' +
+      '<ellipse cx="78" cy="68" rx="14" ry="7" fill="#fff" opacity=".55" transform="rotate(-25 78 68)"/>' +
+      eyes(m) +
+      '<ellipse cx="58" cy="124" rx="12" ry="7" fill="#ff5c93" opacity=".45"/><ellipse cx="142" cy="124" rx="12" ry="7" fill="#ff5c93" opacity=".45"/>' +
+      mouth(m) + extra(m) + '</svg>';
+  }
+  if (typeof module !== 'undefined') module.exports = mascot; else root.mascot = mascot;
+})(this);
+</script>
+<script>
+const E = Engine, C = CONTENT, GLOSS = C.GLOSS;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const rnd = a => a[Math.floor(Math.random() * a.length)];
+const KEY = 'candyisland3';
+let S = load();
+function load() { try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.v === 3) return Object.assign(E.newState(), s); } catch (e) {} return E.newState(); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+let soundOn = true;
+
+/* ---------- 声音 ---------- */
+let ac;
+function tone(seq, type = 'sine', vol = .15) {
+  if (!soundOn) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    seq.forEach(([f, t, d]) => { const o = ac.createOscillator(), g = ac.createGain(), s = ac.currentTime + t; o.type = type; o.frequency.setValueAtTime(f, s); g.gain.setValueAtTime(.0001, s); g.gain.exponentialRampToValueAtTime(vol, s + .015); g.gain.exponentialRampToValueAtTime(.0001, s + d); o.connect(g).connect(ac.destination); o.start(s); o.stop(s + d + .02); });
+  } catch (e) {}
+}
+const sfx = {
+  pop: () => tone([[880, 0, .08], [1320, .05, .1]], 'triangle'),
+  ok: () => tone([[660, 0, .1], [880, .08, .1], [1320, .16, .18]], 'triangle'),
+  no: () => tone([[300, 0, .15], [220, .12, .2]], 'square', .06),
+  combo: n => tone([[520 + n * 60, 0, .08], [780 + n * 60, .06, .08], [1040 + n * 60, .12, .16]], 'triangle'),
+  win: () => tone([[523, 0, .15], [659, .15, .15], [784, .3, .15], [1047, .45, .4]], 'triangle', .18),
+  tick: () => tone([[1200, 0, .03]], 'square', .03)
+};
+
+/* ---------- 朗读 ---------- */
+let voice = null;
+function pickVoice() {
+  if (!('speechSynthesis' in window)) return;
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find(v => /en[-_]US/i.test(v.lang) && /Samantha|Google US|Jenny|Aria|Ava|Allison|Zira/i.test(v.name)) || vs.find(v => /en[-_]US/i.test(v.lang)) || vs.find(v => /^en/i.test(v.lang)) || null;
+}
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+let baseRate = .9;
+function speak(text, opt = {}, hostEl) {
+  return new Promise(res => {
+    if (!('speechSynthesis' in window)) return res();
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; if (voice) u.voice = voice;
+    u.rate = opt.rate || baseRate; u.pitch = opt.pitch || 1; u.volume = opt.vol == null ? 1 : opt.vol;
+    const spans = hostEl ? [...hostEl.querySelectorAll('.w')] : [];
+    u.onboundary = e => { if (!spans.length) return; let hit = null; spans.forEach(s => { s.classList.remove('say'); if (+s.dataset.c <= e.charIndex) hit = s; }); if (hit) hit.classList.add('say'); };
+    const done = () => { spans.forEach(s => s.classList.remove('say')); res(); };
+    u.onend = done; u.onerror = done;
+    setTimeout(done, 1500 + text.length * 160);
+    speechSynthesis.speak(u);
+  });
+}
+
+/* ---------- 跟读识别（三档降级：语音识别 → 录音回放自评 → 直接自评）---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+let recog = null, srBroken = false; // 国内网络下 Chrome 的识别服务常连不上，失败后自动换成自评模式
+function listen(target) {
+  return new Promise(res => {
+    if (!SR) return res({ mode: 'none' });
+    let best = '', bestScore = -1, finished = false;
+    const r = new SR(); recog = r;
+    r.lang = 'en-US'; r.interimResults = true; r.maxAlternatives = 4; r.continuous = false;
+    r.onresult = e => {
+      for (let i = 0; i < e.results.length; i++) for (let j = 0; j < e.results[i].length; j++) {
+        const t = e.results[i][j].transcript, sc = E.score(target, t).score;
+        if (sc > bestScore) { bestScore = sc; best = t; }
+      }
+    };
+    const end = err => { if (finished) return; finished = true; recog = null; res({ mode: 'sr', text: best, err }); };
+    r.onerror = e => end(e.error);
+    r.onend = () => end();
+    try { r.start(); } catch (e) { end('start'); }
+    setTimeout(() => { try { r.stop(); } catch (e) {} }, 4000 + target.length * 90);
+  });
+}
+let mediaRec = null;
+async function recordSelf(ms) {
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  return new Promise(res => {
+    const chunks = []; const mr = new MediaRecorder(stream); mediaRec = mr;
+    mr.ondataavailable = e => chunks.push(e.data);
+    mr.onstop = () => { stream.getTracks().forEach(t => t.stop()); mediaRec = null; res(URL.createObjectURL(new Blob(chunks, { type: mr.mimeType }))); };
+    mr.start(); setTimeout(() => { if (mr.state === 'recording') mr.stop(); }, ms);
+  });
+}
+
+/* ---------- 特效 ---------- */
+const fx = $('#fx'), fc = fx.getContext('2d');
+let parts = [], fxOn = false;
+const CANDY = ['#ff7eb3', '#ffd54f', '#7fd0ff', '#6fd8a0', '#b99bff', '#ffb38a'];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function sizeFx() { const d = devicePixelRatio || 1; fx.width = innerWidth * d; fx.height = innerHeight * d; fc.setTransform(d, 0, 0, d, 0, 0); }
+sizeFx(); addEventListener('resize', sizeFx);
+function burst(x, y, n = 24) { if (reduce) return; for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, s = 3 + Math.random() * 6; parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 3, g: .22, life: 55 + Math.random() * 30, t: 0, r: 4 + Math.random() * 6, c: CANDY[i % 6], k: Math.random() < .35 ? 'star' : Math.random() < .5 ? 'heart' : 'dot', rot: 0 }); } go(); }
+function rain() { if (reduce) return; for (let i = 0; i < 130; i++) parts.push({ x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * .6, vx: (Math.random() - .5) * 2, vy: 2 + Math.random() * 3, g: .03, life: 210, t: 0, r: 5 + Math.random() * 5, c: CANDY[i % 6], k: i % 3 ? 'rect' : 'heart', rot: Math.random() * 6 }); go(); }
+function go() { if (!fxOn) { fxOn = true; requestAnimationFrame(tick); } }
+function star(x, y, r) { fc.beginPath(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5 - Math.PI / 2, rr = i % 2 ? r * .45 : r; fc.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } fc.closePath(); fc.fill(); }
+function heart(x, y, r) { fc.beginPath(); fc.moveTo(x, y + r * .8); fc.bezierCurveTo(x - r * 1.4, y - r * .2, x - r * .6, y - r * 1.2, x, y - r * .4); fc.bezierCurveTo(x + r * .6, y - r * 1.2, x + r * 1.4, y - r * .2, x, y + r * .8); fc.fill(); }
+function tick() {
+  fc.clearRect(0, 0, innerWidth, innerHeight); parts = parts.filter(p => p.t < p.life);
+  for (const p of parts) {
+    p.t++; p.vy += p.g; p.x += p.vx; p.y += p.vy; p.vx *= .99; p.rot += .12; fc.globalAlpha = Math.max(0, 1 - p.t / p.life); fc.fillStyle = p.c;
+    if (p.k === 'star') star(p.x, p.y, p.r * 1.3); else if (p.k === 'heart') heart(p.x, p.y, p.r * 1.1);
+    else if (p.k === 'rect') { fc.save(); fc.translate(p.x, p.y); fc.rotate(p.rot); fc.fillRect(-p.r, -p.r / 2.5, p.r * 2, p.r / 1.25); fc.restore(); }
+    else { fc.beginPath(); fc.arc(p.x, p.y, p.r, 0, 7); fc.fill(); }
+  }
+  fc.globalAlpha = 1; if (parts.length) requestAnimationFrame(tick); else { fxOn = false; fc.clearRect(0, 0, innerWidth, innerHeight); }
+}
+function praise(t) { const el = document.createElement('div'); el.className = 'praise'; el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 1200); }
+const centerOf = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2300); }
+document.addEventListener('click', e => { const b = e.target.closest('.btn,.gem,.tile,.node'); if (b) { b.classList.remove('squish'); void b.offsetWidth; b.classList.add('squish'); } });
+
+/* ---------- 单词点查 ---------- */
+function glossOf(w) {
+  w = w.toLowerCase().replace(/’/g, "'").replace(/^'+|'+$/g, '');
+  if (GLOSS[w]) return [w, GLOSS[w]];
+  for (const suf of ['s', 'es', 'ed', 'd', 'ing']) { const b = w.endsWith(suf) && w.slice(0, -suf.length); if (b && GLOSS[b]) return [b, GLOSS[b]]; }
+  return [w, null];
+}
+function wordsHtml(sent, marks) {
+  let k = 0;
+  return sent.replace(/[A-Za-z0-9][A-Za-z0-9’'\-]*/g, (w, off) => {
+    const g = glossOf(w)[1]; let cls = g ? ' g' : '';
+    if (marks) { const m = marks[k]; if (m === true) cls += ' ok'; else if (m === false) cls += ' miss'; }
+    k++;
+    return `<span class="w${cls}" data-c="${off}" data-w="${esc(w)}">${esc(w)}</span>`;
+  });
+}
+function openWord(w) {
+  const [base, g] = glossOf(w);
+  S.looked++; save();
+  $('#sheetIn').innerHTML = `<div class="row" style="justify-content:space-between"><div><div class="wd">${esc(base)}</div>${g ? `<div class="ipa">${esc(g[0])}</div>` : ''}</div>${mascot(g ? 'wow' : 'happy', 70)}</div>
+    <div style="font-size:17px;font-weight:700;margin:10px 0 16px">${g ? esc(g[1]) : '这是个基础词，听听发音就好～'}</div>
+    <div class="row"><button class="btn lilac" id="wSay">🔊 听发音</button><button class="btn" id="wSlow">🐢 慢速</button><span style="flex:1"></span><button class="btn" id="wClose">记住啦</button></div>`;
+  $('#sheet').classList.add('on'); sfx.pop();
+  $('#wSay').onclick = () => speak(base, { rate: .85 }); $('#wSlow').onclick = () => speak(base, { rate: .5 });
+  $('#wClose').onclick = () => $('#sheet').classList.remove('on');
+  speak(base, { rate: .85 });
+}
+document.addEventListener('click', e => { const w = e.target.closest('.w'); if (w && !w.closest('.nolook')) openWord(w.dataset.w); });
+
+/* ---------- 顶栏 / 标签页 ---------- */
+function renderTop() {
+  E.touchDay(S);
+  $('#tStreak').textContent = E.streakAlive(S); $('#tStars').textContent = E.totalStars(S); $('#tXp').textContent = S.xp;
+}
+$('#tSound').onclick = () => { soundOn = !soundOn; $('#tSound').textContent = soundOn ? '🔊' : '🔇'; };
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b));
+  ['vMap', 'vFuture', 'vMe'].forEach(v => $('#' + v).hidden = v !== b.dataset.v);
+  ({ vMap: renderMap, vFuture: renderFuture, vMe: renderMe })[b.dataset.v](); scrollTo(0, 0); sfx.pop();
+});
+
+/* ---------- 地图 ---------- */
+const GREET = ['今天也来闯一关吧！', '10 分钟就好，我陪你～', '昨天学的还记得吗？', '每天一点点，开口不再怕！', '冲鸭！今天的你比昨天更会说～'];
+function renderMap() {
+  renderTop();
+  const cur = E.nextLevel(S), tipLv = E.level(cur), opened = S.tips.indexOf(cur) >= 0;
+  const pct = Math.min(100, S.todayXp / S.goal * 100);
+  let h = `<div class="hello">${mascot(pct >= 100 ? 'love' : 'happy', 74)}<div class="bubble">${S.name ? esc(S.name) + '，' : ''}${pct >= 100 ? '今天的目标完成啦，你超棒！' : rnd(GREET)}</div></div>
+  <div class="goal"><span class="disp" style="font-size:16px">今日目标</span><div class="bar"><div class="fill" style="width:${pct}%"></div></div><b style="font-family:var(--n)">${Math.min(S.todayXp, S.goal)}/${S.goal}</b></div>
+  <div class="card cookie ${opened ? 'open' : ''}" id="cookie"><div class="ic">🥠</div><div>${opened ? `<h4>${esc(tipLv.tip.t)}</h4><p>${esc(tipLv.tip.b)}</p>` : `<h4>今日幸运饼干</h4><p>点我拆开今天的英语小技巧 ✨</p>`}</div></div>`;
+  C.STAGES.forEach((st, si) => {
+    h += `<div class="stagehead" style="background:linear-gradient(135deg,${st.color},${st.color}cc)"><div class="big">${st.icon}</div><div class="en">STOP ${si + 1} · ${esc(st.en)}</div><h3>${esc(st.name)}</h3><div class="ab">🔓 解锁能力：${esc(st.unlock)}</div></div>`;
+    const offs = [0, 70, 100, 60, -10, -60], H = 108;
+    let nodes = '', pts = [];
+    for (let i = 0; i < 6; i++) {
+      const id = st.from + i, lv = E.level(id), d = S.lv[id], un = E.unlocked(S, id), isCur = id === cur && !d;
+      const size = lv.boss ? 80 : 66, x = offs[i], y = i * H + 26;
+      pts.push([x, y + size / 2]);
+      const stars = d ? '⭐'.repeat(d.stars) + '<span style="opacity:.25">' + '⭐'.repeat(3 - d.stars) + '</span>' : '';
+      nodes += `<button class="node ${lv.boss ? 'boss' : ''} ${un ? '' : 'lock'} ${isCur ? 'cur' : ''}" data-id="${id}" style="left:calc(50% + ${x - size / 2}px);top:${y}px;background:${st.color}">${un ? (lv.boss ? (d ? '🏆' : '🎁') : id) : '🔒'}<span class="st">${stars}</span></button>`;
+      if (isCur) nodes += `<div class="here bob" style="left:calc(50% + ${x + (x > 40 ? -size / 2 - 72 : size / 2 + 4)}px);top:${y - 30}px"><span class="tag">开始！</span>${mascot('cheer', 58)}</div>`;
+    }
+    let path = ''; pts.forEach((p, i) => { path += i ? ` Q ${(pts[i - 1][0] + p[0]) / 2 + 30} ${(pts[i - 1][1] + p[1]) / 2} ${p[0]} ${p[1]}` : `M ${p[0]} ${p[1]}`; });
+    h += `<div class="path" style="height:${6 * H + 30}px"><svg viewBox="-200 0 400 ${6 * H + 30}" preserveAspectRatio="xMidYMin meet"><path d="${path}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 18"/></svg>${nodes}</div>`;
+  });
+  const all = E.doneCount(S) >= 30;
+  h += `<div class="finale card"><div style="font-size:52px">🎬</div><h3>终点：你的封面大片</h3><div class="small" style="margin-bottom:12px">通关 30 关，录下你的第一条英文 vlog 开场，<br>生成一张属于你的杂志封面</div><button class="btn ${all ? 'pink' : ''}" id="toGrad">${all ? '✨ 去拍我的封面大片' : '🔒 还差 ' + (30 - E.doneCount(S)) + ' 关'}</button></div>`;
+  $('#vMap').innerHTML = h;
+  $('#vMap').querySelectorAll('.node').forEach(n => n.onclick = () => { const id = +n.dataset.id; if (!E.unlocked(S, id)) { toast('先通过前一关才能解锁哦'); sfx.no(); return; } startLesson(id); });
+  $('#cookie').onclick = e => { if (S.tips.indexOf(cur) < 0) { S.tips.push(cur); save(); sfx.ok(); burst(...centerOf($('#cookie .ic')), 18); renderMap(); } };
+  $('#toGrad').onclick = () => { if (all) openGrad(); else { toast('一关一关来，终点在等你 ✨'); } };
+  const c = $('#vMap .node.cur'); if (c && !renderMap.scrolled) { renderMap.scrolled = 1; setTimeout(() => c.scrollIntoView({ block: 'center', behavior: 'smooth' }), 300); }
+}
+
+/* ---------- 30 天后的我 ---------- */
+const FUTURE = [
+  ['☕', '早上，在咖啡馆用英语点单', '“Can I get an oat latte, please?” 再补一句 “This place has such good vibes.” 店员冲你笑了。'],
+  ['🛍️', '和闺蜜逛街，看到心动的包', '“I’ve had my eye on this for months!” 一句话说出口，自己都觉得好自然。'],
+  ['✈️', '一个人去旅行，也不慌', '问路、点餐、和民宿老板聊两句，不用一直举着翻译软件。'],
+  ['📱', '刷喜欢的博主 vlog', '“Not gonna lie”“Low-key obsessed”… 那些口头禅，一听就懂，还能跟着说。'],
+  ['🎬', '拍下你的第一条英文 vlog', '对着镜头说 30 秒英语，朋友圈里那个闪闪发光的女生，就是你。']
+];
+function renderFuture() {
+  renderTop();
+  const done = E.doneCount(S);
+  let h = `<div class="sec center">${mascot('love', 110)}<h2 style="margin-top:6px">30 天后，<br>你会成为这样的女生 ✨</h2><div class="small">每天 10 分钟，闯完 30 关，200 句地道口语变成你自己的话</div></div>
+  <div class="sec">${FUTURE.map(f => `<div class="postcard card"><div class="em">${f[0]}</div><div><b>${f[1]}</b><span>${f[2]}</span></div></div>`).join('')}</div>
+  <div class="sec"><h2>终点奖励：你的封面大片 📸</h2><div class="coverwrap"><canvas id="futureCover" width="900" height="1200"></canvas>${done >= 30 ? '' : `<div class="lockv">🔒<div>通关第 30 关解锁</div><div class="small">放上你的照片和名字，生成专属杂志封面</div></div>`}</div></div>
+  <div class="sec"><h2>你的旅行护照 🛂</h2><div class="card"><div class="stamps">${C.STAGES.map((s, i) => `<div class="stamp ${S.stickers.indexOf(i) >= 0 ? 'on' : ''}" title="${esc(s.name)}">${s.icon}</div>`).join('')}</div>
+    <div style="margin-top:12px;font-size:14px;line-height:1.8">${C.STAGES.map((s, i) => `${S.stickers.indexOf(i) >= 0 ? '✅' : '⬜'} <b>${esc(s.name)}</b>：${esc(s.unlock)}`).join('<br>')}</div></div></div>
+  <div class="sec"><h2>毕业那天，你会说出这段话 🎙️</h2><div class="card"><div class="ex nolook" style="border:0;padding:0">${C.GRAD.map((g, i) => `<div style="margin-bottom:8px"><div class="e">${esc(g)}</div><div class="small">${esc(C.GRADZH[i])}</div></div>`).join('')}</div><button class="btn lilac wide" id="playGrad">🔊 先听听未来的自己</button></div></div>
+  <div class="sec card center"><div class="disp" style="font-size:20px">坚持的复利</div><div style="font-family:var(--n);font-size:22px;font-weight:800;margin:6px 0">10 分钟 × 30 天 = 200 句</div><div class="small">你已经走了 ${done} 关，再坚持 ${30 - done} 关</div><button class="btn pink wide" style="margin-top:12px" id="goNow">${done ? '继续我的旅程' : '现在出发'}</button></div>`;
+  $('#vFuture').innerHTML = h;
+  drawCover($('#futureCover'), S.name || '你的名字', null, done >= 30);
+  $('#playGrad').onclick = async () => { for (const g of C.GRAD) { await speak(g, { rate: .9 }); } };
+  $('#goNow').onclick = () => startLesson(E.nextLevel(S));
+}
+
+/* ---------- 我的收藏 ---------- */
+function renderMe() {
+  renderTop();
+  let h = `<div class="sec"><div class="card stats"><div><b>${E.doneCount(S)}</b><span class="small">已通关</span></div><div><b>${E.streakAlive(S)}</b><span class="small">连续天数</span></div><div><b>${S.speaks}</b><span class="small">开口次数</span></div></div></div>
+  <div class="sec"><h2>徽章墙 🏅</h2><div class="badges">${E.BADGES.map(b => `<div class="badge card ${S.badges.indexOf(b.id) >= 0 ? '' : 'off'}"><div class="e">${b.e}</div><b>${b.t}</b><div class="small">${b.d}</div></div>`).join('')}</div></div>
+  <div class="sec"><h2>护照印章 🛂</h2><div class="card"><div class="stamps">${C.STAGES.map((s, i) => `<div class="stamp ${S.stickers.indexOf(i) >= 0 ? 'on' : ''}">${s.icon}</div>`).join('')}</div><div class="small" style="margin-top:8px">每一站的 🎁 宝箱关通关后盖章</div></div></div>
+  <div class="sec"><h2>我的名字</h2><div class="card"><input class="name" id="nm" maxlength="12" placeholder="写在封面大片上的名字" value="${esc(S.name)}"><div class="small" style="margin-top:8px">可以是英文名，比如 Lily、Mia</div></div></div>
+  <div class="sec center"><button class="btn" id="reset" style="font-size:14px">重新开始（清空进度）</button></div>`;
+  $('#vMe').innerHTML = h;
+  $('#nm').onchange = e => { S.name = e.target.value.trim(); save(); toast('名字已保存 ✨'); };
+  $('#reset').onclick = () => { if (confirm('确定清空全部进度吗？')) { S = E.newState(); save(); renderMe(); } };
+}
+
+/* ---------- 闯关 ---------- */
+let L = null;
+function startLesson(id) {
+  const lv = E.level(id);
+  baseRate = lv.stage <= 1 ? .82 : lv.stage === 2 ? .88 : .95;
+  L = { id, lv, steps: E.buildSteps(id), i: 0, speak: [], games: 0, right: 0, combo: 0, maxCombo: 0, act: false, xp: 0 };
+  $('#lesson').hidden = false; document.body.style.overflow = 'hidden';
+  renderStep();
+}
+function quitLesson() { speechSynthesis && speechSynthesis.cancel(); if (recog) try { recog.abort(); } catch (e) {} $('#lesson').hidden = true; $('#lessonIn').innerHTML = ''; document.body.style.overflow = ''; renderMap(); }
+function shell(coachMood, coachText, body) {
+  const pct = L.i / L.steps.length * 100;
+  $('#lessonIn').innerHTML = `<div class="lhead"><button class="x" id="lx">✕</button><div class="pbar"><div style="width:${pct}%"></div></div>${L.combo >= 2 ? `<span class="combo">🔥 连击 ×${L.combo}</span>` : `<span class="chip">${L.i + 1}/${L.steps.length}</span>`}</div>
+  <div class="coach"><div class="m bob" id="coachM">${mascot(coachMood, 76)}</div><div class="bubble" id="coachT">${coachText}</div></div>
+  <div class="stage">${body}</div><div class="foot" id="foot"></div>`;
+  $('#lx').onclick = () => { if (L.i === 0 || confirm('现在退出，这一关的进度不会保存哦')) quitLesson(); };
+}
+function coach(mood, text) { $('#coachM').innerHTML = mascot(mood, 76); if (text) $('#coachT').innerHTML = text; }
+function next() { L.i++; if (L.i >= L.steps.length) finish(); else renderStep(); }
+function gotIt(ok, el) {
+  L.games++;
+  if (ok) {
+    L.right++; L.combo++; L.maxCombo = Math.max(L.maxCombo, L.combo); L.xp += 2;
+    if (L.combo >= 3) { sfx.combo(L.combo); praise(L.combo >= 5 ? '无敌连击 ×' + L.combo : '连击 ×' + L.combo); } else sfx.ok();
+    if (el) burst(...centerOf(el), 26);
+  } else { L.combo = 0; sfx.no(); }
+}
+function footFeedback(ok, title, detail, onNext) {
+  $('#foot').innerHTML = `<div class="fb ${ok ? 'ok' : 'no'}"><b>${title}</b>${detail ? `<div style="margin-top:4px;font-size:15px">${detail}</div>` : ''}</div><button class="btn ${ok ? 'mint' : 'yellow'} wide" id="go">继续 →</button>`;
+  $('#go').onclick = onNext || next;
+}
+const RIGHT = ['答对啦！', '太聪明了！', '漂亮！', '就是这个！', '你好会！'];
+const LEARN_TIPS = ['先听我读一遍，再按麦克风跟我说～', '点一下不认识的单词，我告诉你意思哦', '慢一点也没关系，读清楚最重要', '试试模仿我的语气和节奏！'];
+
+function renderStep() {
+  const st = L.steps[L.i];
+  ({ learn: stepLearn, choose: stepChoose, build: stepBuild, fill: stepFill, act: stepAct, match: stepMatch })[st.type](st);
+}
+
+/* 学习 + 跟读 */
+function speakBlock(text) {
+  return `<div class="center" id="micBox"><button class="btn pink mic" id="mic">🎤</button><div class="miclabel" id="micL">${SR && !srBroken ? '按一下，跟我读' : canRecord ? '按一下录音，听听自己' : '大声读出来吧'}</div></div>`;
+}
+function wireMic(text, hostEl, onScore, opts = {}) {
+  const mic = $('#mic'), lab = $('#micL');
+  mic.onclick = async () => {
+    if (mic.classList.contains('rec')) { if (recog) recog.stop(); if (mediaRec) mediaRec.stop(); return; }
+    speechSynthesis && speechSynthesis.cancel();
+    if (SR && !srBroken) {
+      mic.classList.add('rec'); mic.textContent = '⏹'; lab.textContent = '我在听… 读完点一下'; coach('think', '我在认真听哦～');
+      const r = await listen(text);
+      mic.classList.remove('rec'); mic.textContent = '🎤'; lab.textContent = '再读一次';
+      if (['not-allowed', 'service-not-allowed', 'network', 'audio-capture', 'language-not-supported', 'start'].indexOf(r.err) >= 0) {
+        srBroken = true; lab.textContent = canRecord ? '按一下录音，听听自己' : '大声读出来吧';
+        toast(r.err === 'not-allowed' ? '麦克风没打开，先用自评模式' : '语音打分暂时连不上，先用自评模式'); return selfRate(onScore);
+      }
+      if (!r.text) {
+        coach('think', '我好像没听到，大点声再来一次？'); sfx.no();
+        if (!$('#selfOk')) $('#foot').insertAdjacentHTML('afterbegin', `<div class="center" style="margin-bottom:8px"><button class="btn" style="font-size:14px;padding:8px 14px" id="selfOk">我读完啦，自己打分</button></div>`);
+        $('#selfOk').onclick = () => selfRate(onScore); return;
+      }
+      const sc = E.score(text, r.text); onScore(sc.score, sc.marks, r.text);
+    } else if (canRecord) {
+      try {
+        mic.classList.add('rec'); mic.textContent = '⏹'; lab.textContent = '录音中… 读完点一下'; coach('think', '读完点一下停止，然后听听自己～');
+        const url = await recordSelf(3500 + text.length * 90);
+        mic.classList.remove('rec'); mic.textContent = '🎤'; lab.textContent = '再录一次';
+        await speak(text, {}, hostEl); await new Promise(r => { const a = new Audio(url); a.onended = r; a.onerror = r; a.play().catch(r); });
+        selfRate(onScore);
+      } catch (e) { mic.classList.remove('rec'); mic.textContent = '🎤'; selfRate(onScore); }
+    } else selfRate(onScore);
+  };
+}
+function selfRate(onScore) {
+  coach('happy', '和我读的比一比，你觉得怎么样？');
+  $('#foot').innerHTML = `<div class="row"><button class="btn mint" style="flex:1" id="sr1">😊 读顺了</button><button class="btn yellow" style="flex:1" id="sr2">😅 还要练</button></div>`;
+  $('#sr1').onclick = () => onScore(90, null); $('#sr2').onclick = () => onScore(65, null);
+}
+function stepLearn(st) {
+  const it = st.item, isEx = st.text === it.ex, long = st.text.length > 28;
+  shell(L.i === 0 ? 'cheer' : 'happy', L.i === 0 ? `第 ${L.id} 关开始啦！${esc(rnd(LEARN_TIPS))}` : esc(rnd(LEARN_TIPS)),
+    `<span class="chip scene">📍 ${esc(it.scene)}</span>
+    <div class="card"><div class="en ${long ? 'long' : ''}" id="tx">${wordsHtml(st.text)}</div><div class="zh">${esc(isEx ? it.exzh : it.zh)}</div>
+      <div class="row" style="margin-top:14px"><button class="btn lilac play" id="p1">🔊</button><button class="btn play" id="p2">🐢</button><span class="small">点虚线单词看意思</span></div></div>
+    ${isEx ? `<div class="ex"><span class="small">重点表达</span><div class="e">${esc(it.en)}</div><div class="small">${esc(it.zh)}</div></div>` : `<div class="ex"><span class="small">博主这样用 👇</span><div class="e" id="exl">${wordsHtml(it.ex)}</div><div class="small">${esc(it.exzh)}</div><button class="btn" style="font-size:14px;padding:6px 12px;margin-top:6px" id="p3">🔊 听例句</button></div>`}
+    ${speakBlock(st.text)}`);
+  const tx = $('#tx');
+  $('#p1').onclick = () => speak(st.text, {}, tx);
+  $('#p2').onclick = () => speak(st.text, { rate: .55 }, tx);
+  if ($('#p3')) $('#p3').onclick = () => speak(it.ex, {}, $('#exl'));
+  let best = 0, tries = 0;
+  const skip = () => { $('#foot').innerHTML = `<div class="center"><button class="btn" style="font-size:14px;padding:8px 14px" id="skip">现在不方便开口，跳过</button></div>`; $('#skip').onclick = () => { L.speak.push(50); next(); }; };
+  skip();
+  wireMic(st.text, tx, (s, marks) => {
+    tries++; S.speaks++; best = Math.max(best, s);
+    if (marks) tx.innerHTML = wordsHtml(st.text, marks);
+    const v = E.verdict(s);
+    if (s >= 85) { S.perfect++; L.combo++; L.maxCombo = Math.max(L.maxCombo, L.combo); burst(...centerOf($('#mic')), 34); sfx.win(); praise(v.title); L.xp += 3; }
+    else if (s >= 60) { sfx.ok(); L.xp += 2; } else { sfx.pop(); L.xp += 1; }
+    coach(s >= 85 ? 'love' : s >= 60 ? 'cheer' : 'happy', esc(rnd(v.say)) + (s < 60 ? ' 红色的词再听我读一遍～' : ''));
+    save();
+    $('#foot').innerHTML = `<div class="scorebox card" style="margin-bottom:12px"><div class="num">${s}</div><div><div class="t">${v.title}</div><div class="bigstars" style="font-size:24px;text-align:left;letter-spacing:2px">${[1, 2, 3].map(k => `<span class="${k <= v.tier ? '' : 'off'}" style="animation-delay:${k * .12}s">⭐</span>`).join('')}</div></div></div>
+      <div class="row"><button class="btn" style="flex:1" id="again">🔁 再读</button><button class="btn mint" style="flex:1.4" id="nx">下一个 →</button></div>`;
+    $('#again').onclick = () => { $('#mic').click(); };
+    $('#nx').onclick = () => { L.speak.push(best); next(); };
+  });
+  setTimeout(() => speak(st.text, {}, tx), 350);
+}
+
+/* 听音选意 */
+function stepChoose(st) {
+  shell('think', '小测验！听一听，这句是什么意思？', `<div class="card center"><button class="btn lilac mic" id="pl">🔊</button><div class="miclabel">再听一遍</div></div><div class="opts">${st.options.map((o, i) => `<button class="btn opt" data-i="${i}">${['🍓', '🍋', '🫐'][i]} ${esc(o)}</button>`).join('')}</div>`);
+  $('#pl').onclick = () => speak(st.text);
+  setTimeout(() => speak(st.text), 300);
+  let done = false;
+  document.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+    if (done) return; done = true;
+    const ok = st.options[+b.dataset.i] === st.answer;
+    document.querySelectorAll('.opt').forEach(x => { if (st.options[+x.dataset.i] === st.answer) x.classList.add('right'); });
+    if (!ok) { b.classList.add('wrong', 'shake'); }
+    gotIt(ok, b); coach(ok ? 'cheer' : 'happy', ok ? rnd(RIGHT) : '没关系，记住它就赚到了！');
+    footFeedback(ok, ok ? rnd(RIGHT) : '正确答案在绿色那个～', `<b style="font-family:var(--n);font-size:18px">${esc(st.text)}</b><br>${esc(st.text === st.item.ex ? st.item.exzh : st.item.zh)}`);
+  });
+}
+
+/* 糖果拼句 */
+function stepBuild(st) {
+  const hint = st.text === st.item.ex ? st.item.exzh : st.item.zh;
+  shell('happy', '糖果拼句！按顺序点糖果，拼出这句话 🍬', `<div class="card"><div class="zh" style="margin:0 0 6px">「${esc(hint)}」</div><div class="slots" id="slots"></div></div><div class="pool" id="pool">${st.tiles.map((t, k) => `<button class="tile c${k % 6}" data-k="${k}">${esc(t.w)}</button>`).join('')}</div>`);
+  const placed = [];
+  const slots = $('#slots');
+  function check() {
+    if (placed.length < st.answer.length) return;
+    const ok = placed.every((k, i) => E.norm(st.tiles[k].w) === E.norm(st.answer[i]));
+    if (ok) {
+      const ts = [...slots.children];
+      ts.forEach((t, i) => setTimeout(() => { t.classList.add('boom'); burst(...centerOf(t), 10); sfx.pop(); }, i * 110));
+      setTimeout(() => { slots.innerHTML = `<div class="en long" style="animation:pop .4s">${esc(st.text)}</div>`; speak(st.text); }, ts.length * 110 + 350);
+      gotIt(true, null); coach('cheer', '消除成功！整句都拼对啦');
+      footFeedback(true, rnd(RIGHT), esc(hint));
+    } else {
+      slots.classList.add('shake'); setTimeout(() => slots.classList.remove('shake'), 450);
+      gotIt(false); coach('think', '顺序有点乱，看看正确的是哪样～');
+      footFeedback(false, '正确顺序是：', `<b style="font-family:var(--n);font-size:18px">${esc(st.text)}</b>`);
+      speak(st.text);
+    }
+  }
+  document.querySelectorAll('#pool .tile').forEach(b => b.onclick = () => {
+    if (b.classList.contains('used') || placed.length >= st.answer.length) return;
+    b.classList.add('used'); placed.push(+b.dataset.k); sfx.pop();
+    const c = document.createElement('button'); c.className = b.className.replace(' used', '').replace(' squish', ''); c.textContent = b.textContent; c.dataset.k = b.dataset.k; c.style.animation = 'pop .25s';
+    c.onclick = () => { if ($('#foot').innerHTML) return; const k = +c.dataset.k; placed.splice(placed.indexOf(k), 1); c.remove(); b.classList.remove('used'); };
+    slots.appendChild(c); check();
+  });
+}
+
+/* 填空泡泡 */
+function stepFill(st) {
+  shell('happy', '泡泡填空！选一个词放进空格里 🫧', `<div class="card"><div class="en long nolook">${esc(st.before)}<span class="blank" id="bl">？</span>${esc(st.after)}</div><div class="zh">${esc(st.item.exzh)}</div></div><div class="pool">${st.options.map((o, i) => `<button class="tile c${(i * 2 + 1) % 6}" style="font-size:22px;padding:12px 20px" data-i="${i}">${esc(o)}</button>`).join('')}</div>`);
+  let done = false;
+  document.querySelectorAll('.pool .tile').forEach(b => b.onclick = () => {
+    if (done) return; done = true;
+    const ok = E.norm(st.options[+b.dataset.i]) === E.norm(st.answer);
+    $('#bl').textContent = st.answer; $('#bl').style.animation = 'pop .35s';
+    if (!ok) b.classList.add('shake');
+    gotIt(ok, ok ? b : null); coach(ok ? 'cheer' : 'happy', ok ? rnd(RIGHT) : `答案是 <b>${esc(st.answer)}</b>，下次就记住啦`);
+    speak(st.item.ex);
+    footFeedback(ok, ok ? rnd(RIGHT) : '差一点！', `重点表达：<b>${esc(st.item.en)}</b> ${esc(st.item.zh)}`);
+  });
+}
+
+/* 演技挑战 */
+function stepAct(st) {
+  const m = st.mood;
+  shell('wow', `🎭 演技挑战！用「${m.e} ${esc(m.t)}」的语气读这句，越夸张越好～`, `<div class="card mood"><div class="e">${m.e}</div><div class="t">${esc(m.t)}</div></div><div class="card"><div class="en long" id="tx">${wordsHtml(st.text)}</div><div class="zh">${esc(st.text === st.item.ex ? st.item.exzh : st.item.zh)}</div><button class="btn lilac" style="margin-top:12px" id="demo">🔊 看糖豆示范</button></div>${speakBlock(st.text)}`);
+  const tx = $('#tx');
+  $('#demo').onclick = () => speak(st.text, { rate: m.rate, pitch: m.pitch, vol: m.vol }, tx);
+  setTimeout(() => speak(st.text, { rate: m.rate, pitch: m.pitch, vol: m.vol }, tx), 400);
+  $('#foot').innerHTML = `<div class="center"><button class="btn" style="font-size:14px;padding:8px 14px" id="skip">害羞，跳过这题</button></div>`;
+  $('#skip').onclick = () => next();
+  let acted = false;
+  wireMic(st.text, tx, (s, marks) => {
+    S.speaks++; save();
+    if (acted) { if (marks) tx.innerHTML = wordsHtml(st.text, marks); coach('love', '再来一遍也很有戏！'); return; }
+    acted = true; L.act = true; L.xp += 5;
+    if (marks) tx.innerHTML = wordsHtml(st.text, marks);
+    rain(); sfx.win(); praise(rnd(['影后级表演！', '戏精本精！', '奥斯卡欠你一座！']));
+    coach('love', '哈哈哈太有戏了！演技挑战 +5 XP');
+    L.speak.push(Math.max(s, 70));
+    footFeedback(true, '🎬 表演满分！', `识别得分 ${s}，多加点戏，口语会越说越放松～`);
+  });
+}
+
+/* 糖果消消乐 */
+function stepMatch(st) {
+  shell('wow', '🍬 糖果消消乐！把英文和中文配成一对，60 秒内全部消除！', `<div class="row" style="gap:8px"><span class="chip">⏱ <span id="sec">${st.seconds}</span></span><div class="timer" style="flex:1"><div id="tbar" style="width:100%"></div></div><span class="chip">💥 <span id="left">${st.items.length}</span></span></div>
+  <div class="grid" id="grid">${st.tiles.map((t, k) => `<button class="gem ${t.lang} c${(t.k * 7 + (t.lang === 'en' ? 0 : 3)) % 6}" data-k="${k}">${esc(t.t)}</button>`).join('')}</div>`);
+  let sel = null, left = st.items.length, miss = 0, streak = 0, sec = st.seconds, over = false;
+  const tm = setInterval(() => { if (over || $('#lesson').hidden) return clearInterval(tm); sec--; $('#sec').textContent = sec; $('#tbar').style.width = sec / st.seconds * 100 + '%'; if (sec <= 10) sfx.tick(); if (sec <= 0) end(false); }, 1000);
+  function end(cleared) {
+    if (over) return; over = true; clearInterval(tm);
+    const acc = st.items.length / (st.items.length + miss);
+    L.games += 2; L.right += cleared ? Math.round(acc * 2) : 0;
+    if (cleared) { rain(); sfx.win(); praise(sec > 30 ? '闪电消除！' : '全部消除！'); L.xp += 5 + Math.floor(sec / 10); coach('love', `全部消除！还剩 ${sec} 秒，奖励 +${5 + Math.floor(sec / 10)} XP`); }
+    else { coach('happy', '时间到～剩下的已经帮你翻开了，看一眼记住它们'); document.querySelectorAll('.gem:not(.gone)').forEach(g => g.style.outline = '4px solid #ffd54f'); }
+    footFeedback(cleared, cleared ? '🎉 消消乐通关！' : '时间到啦', cleared ? `失误 ${miss} 次${miss === 0 ? '，完美！' : ''}` : '下次一定能全部消掉！', next);
+  }
+  document.querySelectorAll('.gem').forEach(g => g.onclick = () => {
+    if (over) return;
+    const t = st.tiles[+g.dataset.k];
+    if (t.lang === 'en') speak(t.t, { rate: 1 });
+    if (!sel) { sel = g; g.classList.add('sel'); sfx.pop(); return; }
+    if (sel === g) { g.classList.remove('sel'); sel = null; return; }
+    const a = st.tiles[+sel.dataset.k];
+    if (a.k === t.k && a.lang !== t.lang) {
+      const s1 = sel; s1.classList.remove('sel'); s1.classList.add('gone'); g.classList.add('gone');
+      burst(...centerOf(s1), 14); burst(...centerOf(g), 14); streak++; left--; $('#left').textContent = left;
+      L.combo++; L.maxCombo = Math.max(L.maxCombo, L.combo);
+      if (streak >= 2) { sfx.combo(streak); praise('连消 ×' + streak); } else sfx.ok();
+      sel = null; if (!left) setTimeout(() => end(true), 450);
+    } else {
+      const s1 = sel; s1.classList.remove('sel'); [s1, g].forEach(x => { x.classList.add('shake'); setTimeout(() => x.classList.remove('shake'), 420); });
+      sfx.no(); miss++; streak = 0; L.combo = 0; sel = null;
+    }
+  });
+}
+
+/* ---------- 结算 ---------- */
+function finish() {
+  const avg = L.speak.length ? L.speak.reduce((a, b) => a + b, 0) / L.speak.length : 60;
+  const acc = L.games ? L.right / L.games : 1;
+  const stars = E.starsFor(avg, acc);
+  E.addXp(S, L.xp);
+  const gain = E.finishLevel(S, L.id, stars, { combo: L.maxCombo, act: L.act });
+  save();
+  $('#lesson').hidden = true; $('#lessonIn').innerHTML = ''; $('#result').hidden = false;
+  const lv = L.lv, stg = C.STAGES[lv.stage];
+  let h = `<div class="center" style="margin-top:10px">${mascot('cheer', 130)}</div>
+  <div class="center disp" style="font-size:34px;margin:4px 0">第 ${L.id} 关 通关！</div>
+  <div class="bigstars">${[1, 2, 3].map(k => `<span class="${k <= stars ? '' : 'off'}" style="animation-delay:${.2 + k * .25}s">⭐</span>`).join('')}</div>
+  <div class="card stats" style="margin-top:14px"><div><b>+${gain.xp + L.xp}</b><span class="small">经验</span></div><div><b>${Math.round(avg)}</b><span class="small">口语均分</span></div><div><b>${L.maxCombo}</b><span class="small">最高连击</span></div></div>`;
+  if (gain.sticker) h += `<div class="card gain" style="margin-top:14px;animation-delay:1s;background:#fff3c9"><div class="e">${gain.sticker.e}</div><div><b class="disp" style="font-size:20px;font-weight:400">护照盖章：${esc(gain.sticker.t)}！</b><div style="font-size:14px;margin-top:2px">🔓 新能力解锁：<b>${esc(gain.ability.unlock)}</b></div><div class="small">${esc(gain.ability.detail)}</div></div></div>`;
+  gain.badges.forEach((b, i) => h += `<div class="card gain" style="margin-top:10px;animation-delay:${1.2 + i * .2}s"><div class="e">${b.e}</div><div><b>新徽章：${b.t}</b><div class="small">${b.d}</div></div></div>`);
+  h += `<div class="card" style="margin-top:12px;font-size:14px;line-height:1.7"><b>🥠 今日小技巧：${esc(lv.tip.t)}</b><br>${esc(lv.tip.b)}</div>
+  <div class="card center" style="margin-top:12px"><canvas id="share" width="750" height="1000" style="width:100%;border-radius:16px"></canvas><div class="small" style="margin:8px 0">长按图片保存，发朋友圈打卡 ✨</div></div>
+  <div class="row" style="margin-top:14px"><button class="btn" style="flex:1" id="rAgain">🔁 再玩一次</button><button class="btn pink" style="flex:1.4" id="rNext">${L.id >= 30 ? '🎬 去拍封面大片' : '下一关 →'}</button></div>`;
+  $('#resultIn').innerHTML = h;
+  drawShare($('#share'), L.id, stars, stg);
+  setTimeout(() => { rain(); sfx.win(); }, 300);
+  const id = L.id;
+  $('#rAgain').onclick = () => { $('#result').hidden = true; startLesson(id); };
+  $('#rNext').onclick = () => { $('#result').hidden = true; document.body.style.overflow = ''; if (id >= 30) openGrad(); else startLesson(id + 1); };
+  renderTop();
+}
+
+/* ---------- 画图：打卡图 / 封面大片 ---------- */
+function svgImg(svg) { return new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }); }
+function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+const FD = "'ZCOOL KuaiLe','PingFang SC','Microsoft YaHei',sans-serif", FN = "'Baloo 2','PingFang SC',sans-serif";
+async function drawShare(cv, id, stars, stg) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#ffc2dc'); g.addColorStop(.55, '#ffe6d1'); g.addColorStop(1, '#dff3ff'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+  c.fillStyle = '#ffffff99'; [[120, 140, 60], [640, 220, 80], [90, 820, 70], [680, 900, 50]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); });
+  const m = await svgImg(mascot('cheer', 300)); if (m) c.drawImage(m, W / 2 - 150, 120, 300, 300);
+  c.textAlign = 'center'; c.fillStyle = '#4a2c45';
+  c.font = `64px ${FD}`; c.fillText(`口语糖果岛 · 第 ${id} 关`, W / 2, 500);
+  c.font = `110px ${FN}`; c.fillStyle = '#ffb800'; c.fillText('★'.repeat(stars) + '☆'.repeat(3 - stars), W / 2, 640);
+  c.fillStyle = '#4a2c45'; c.font = `40px ${FD}`; c.fillText(`${stg.icon} ${stg.name}`, W / 2, 720);
+  c.font = `34px ${FD}`; c.fillText(`连续打卡 ${E.streakAlive(S)} 天 · 已通关 ${E.doneCount(S)}/30`, W / 2, 790);
+  rr(c, 70, 840, W - 140, 100, 30); c.fillStyle = '#fff'; c.fill(); c.lineWidth = 5; c.strokeStyle = '#4a2c45'; c.stroke();
+  c.fillStyle = '#e0558f'; c.font = `36px ${FD}`; c.fillText('每天 10 分钟，30 天后开口说英语', W / 2, 903);
+}
+async function drawCover(cv, name, photo, real) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+  if (photo) {
+    const s = Math.max(W / photo.width, H / photo.height); c.drawImage(photo, (W - photo.width * s) / 2, (H - photo.height * s) / 2, photo.width * s, photo.height * s);
+  } else {
+    const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#ffb3d1'); g.addColorStop(.5, '#ffd9c2'); g.addColorStop(1, '#c9b8ff'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    const m = await svgImg(mascot('love', 560)); if (m) c.drawImage(m, W / 2 - 280, 300, 560, 560);
+  }
+  const sh = c.createLinearGradient(0, H * .45, 0, H); sh.addColorStop(0, '#0000'); sh.addColorStop(1, '#000a'); c.fillStyle = sh; c.fillRect(0, 0, W, H);
+  const top = c.createLinearGradient(0, 0, 0, 260); top.addColorStop(0, '#0006'); top.addColorStop(1, '#0000'); c.fillStyle = top; c.fillRect(0, 0, W, 260);
+  c.fillStyle = '#fff'; c.textAlign = 'center'; c.font = `800 150px ${FN}`; c.fillText('SHE SPEAKS', W / 2, 160);
+  c.font = `600 28px ${FN}`; c.fillText('THE MAIN CHARACTER ISSUE  ·  NO.30', W / 2, 210);
+  c.textAlign = 'left'; c.font = `34px ${FD}`;
+  [['本期封面人物', 300], ['200 句博主同款口语', 360], ['5 座城市护照印章', 410]].forEach(([t, y], i) => { c.fillStyle = i ? '#fff' : '#ffd54f'; c.fillText(t, 50, y); });
+  c.textAlign = 'center'; c.fillStyle = '#ffd54f'; c.font = `800 120px ${FN}`; c.fillText(name, W / 2, H - 250);
+  c.fillStyle = '#fff'; c.font = `48px ${FD}`; c.fillText('30 天，我开口说英语了', W / 2, H - 170);
+  c.font = `30px ${FD}`; c.fillText(real ? `${E.totalStars(S)} 颗星 · ${S.speaks} 次开口 · 第一条英文 vlog 已录制` : '这里会是你的照片和名字', W / 2, H - 110);
+  c.font = `600 24px ${FN}`; c.fillStyle = '#ffffffcc'; c.fillText('CANDY ISLAND ENGLISH', W / 2, H - 50);
+}
+
+/* ---------- 毕业：录 vlog 开场 + 封面大片 ---------- */
+function openGrad() {
+  $('#intro').hidden = false; document.body.style.overflow = 'hidden';
+  let i = 0; const scores = [];
+  function line() {
+    if (i >= C.GRAD.length) return cover();
+    const t = C.GRAD[i];
+    $('#introIn').innerHTML = `<div class="lhead"><button class="x" id="gx">✕</button><div class="pbar"><div style="width:${i / C.GRAD.length * 100}%"></div></div><span class="chip">🎬 ${i + 1}/6</span></div>
+    <div class="coach"><div class="m bob" id="coachM">${mascot('wow', 76)}</div><div class="bubble" id="coachT">主角时刻！这是你的第一条英文 vlog 开场，对着镜头读出来 🎥</div></div>
+    <div class="card" style="background:#2b2140;color:#fff;border-color:#2b2140;box-shadow:0 6px 0 #000"><div class="small" style="color:#ffb3d1">● REC 提词器</div><div class="teleprompter" id="tx" style="margin:16px 0">${wordsHtml(t)}</div><div class="center" style="opacity:.8">${esc(C.GRADZH[i])}</div></div>
+    <div class="row" style="justify-content:center"><button class="btn lilac" id="p1">🔊 听一遍</button></div>${speakBlock(t)}<div class="foot" id="foot"></div>`;
+    $('#gx').onclick = () => { $('#intro').hidden = true; document.body.style.overflow = ''; };
+    $('#p1').onclick = () => speak(t, {}, $('#tx'));
+    setTimeout(() => speak(t, {}, $('#tx')), 300);
+    wireMic(t, $('#tx'), (s, marks) => {
+      if (marks) $('#tx').innerHTML = wordsHtml(t, marks);
+      scores.push(s); S.speaks++; save(); burst(...centerOf($('#mic')), 26); sfx.ok();
+      coach('love', s >= 80 ? '这条可以直接发！' : '镜头感满满～');
+      $('#foot').innerHTML = `<button class="btn mint wide" id="nx">${i < 5 ? '下一句 →' : '🎬 杀青！生成封面'}</button>`;
+      $('#nx').onclick = () => { i++; line(); };
+    });
+  }
+  function cover() {
+    S.grad = true; save();
+    $('#introIn').innerHTML = `<div class="center disp" style="font-size:30px;margin-top:10px">🎉 恭喜杀青！</div><div class="center small" style="margin-bottom:12px">放上你的照片，生成本期封面人物</div>
+    <div class="coverwrap"><canvas id="cv" width="900" height="1200"></canvas></div>
+    <div class="card" style="margin-top:14px"><input class="name" id="nm2" maxlength="12" placeholder="你的名字（英文名更有感觉）" value="${esc(S.name)}">
+    <div class="row" style="margin-top:12px"><label class="btn lilac" style="flex:1">📷 换成我的照片<input type="file" accept="image/*" id="ph" hidden></label><button class="btn pink" style="flex:1" id="dl">⬇️ 保存封面</button></div>
+    <div class="small" style="margin-top:8px">照片只在你的手机里生成，不会上传</div></div>
+    <button class="btn wide" style="margin-top:14px" id="gdone">回到旅程</button>`;
+    let photo = null; const cv = $('#cv');
+    const redraw = () => drawCover(cv, S.name || 'YOU', photo, true);
+    redraw(); rain(); sfx.win();
+    $('#nm2').oninput = e => { S.name = e.target.value.trim(); save(); redraw(); };
+    $('#ph').onchange = e => { const f = e.target.files[0]; if (!f) return; const img = new Image(); img.onload = () => { photo = img; redraw(); }; img.src = URL.createObjectURL(f); };
+    $('#dl').onclick = () => { const a = document.createElement('a'); a.download = 'SHE-SPEAKS-封面.png'; a.href = cv.toDataURL('image/png'); a.click(); toast('已保存，手机上也可以长按图片保存'); };
+    $('#gdone').onclick = () => { $('#intro').hidden = true; document.body.style.overflow = ''; renderMap(); };
+  }
+  line();
+}
+
+/* ---------- 首次打开 ---------- */
+function intro() {
+  $('#intro').hidden = false; document.body.style.overflow = 'hidden';
+  $('#introIn').innerHTML = `<div class="center" style="margin-top:20px">${mascot('cheer', 150)}</div>
+  <div class="center disp" style="font-size:32px;line-height:1.3">嗨！我是糖豆 👋<br>欢迎来到口语糖果岛</div>
+  <div class="card" style="margin-top:16px;font-size:15px;line-height:1.8">接下来 30 天，我们一起从 <b>巴黎咖啡馆</b> 出发，经过 <b>纽约、东京、伦敦</b>，最后到达 <b>主角时刻</b> 🎬<br>每天 10 分钟，边玩边学 200 句油管博主天天在说的地道口语。<br>终点，你会录下自己的第一条英文 vlog，还会得到一张 <b>专属杂志封面</b> ✨</div>
+  <div class="card" style="margin-top:14px"><div class="disp" style="font-size:18px;margin-bottom:8px">先告诉我，你叫什么？</div><input class="name" id="nm0" maxlength="12" placeholder="比如 Lily（会印在你的封面上）"></div>
+  <button class="btn pink wide" style="margin-top:18px;font-size:22px" id="go0">出发！去巴黎 🥐</button>
+  <div class="small center" style="margin-top:10px">建议戴耳机，在安静的地方开口跟读</div>`;
+  $('#go0').onclick = () => { S.name = $('#nm0').value.trim(); S.intro = true; save(); $('#intro').hidden = true; document.body.style.overflow = ''; sfx.win(); renderMap(); };
+}
+
+renderMap();
+if (!S.intro) intro();
+</script>
+</body>
+</html>
