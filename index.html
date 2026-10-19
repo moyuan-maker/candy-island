@@ -1076,6 +1076,8 @@ function intro() {
 
 renderMap();
 if (!S.intro) intro();
+// 已作废的激活码，在本机也收回解锁
+if (S.pro && S.code && REVOKED.length) codeHash(normCode(S.code)).then(h => { if (REVOKED.indexOf(h) >= 0) { S.pro = false; save(); renderMap(); toast('这个激活码已失效，请联系卖家'); } }).catch(() => {});
 </script>
 </body>
 </html>
