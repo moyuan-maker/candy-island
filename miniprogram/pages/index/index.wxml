@@ -1,0 +1,190 @@
+<view class="app">
+  <!-- 顶栏 -->
+  <view class="top">
+    <view class="chip">🔥 {{top.streak}}</view>
+    <view class="chip">⭐ {{top.stars}}</view>
+    <view class="chip">💎 {{top.xp}}</view>
+    <view style="flex:1"></view>
+    <view class="chip" hover-class="press" bindtap="onBuzz">{{buzzOn ? '📳' : '📴'}}</view>
+  </view>
+
+  <!-- ========== 旅程地图 ========== -->
+  <view wx:if="{{tab === 'map' && map}}">
+    <view class="hello">
+      <image class="hello-m" src="/images/mascot-{{map.mood}}.png" mode="aspectFit"></image>
+      <view class="bubble">{{map.hello}}</view>
+    </view>
+    <view class="goal">
+      <text class="disp" style="font-size:32rpx">今日目标</text>
+      <view class="bar"><view class="fill" style="width:{{map.pct}}%"></view></view>
+      <text style="font-weight:800">{{map.goalTxt}}</text>
+    </view>
+    <view class="card cookie {{map.opened ? 'open' : ''}}" hover-class="press" bindtap="onCookie">
+      <view class="ic">🥠</view>
+      <view class="cookie-tx {{map.opened ? 'pop' : ''}}">
+        <view class="h4">{{map.opened ? map.tipT : '今日幸运饼干'}}</view>
+        <view class="p">{{map.opened ? map.tipB : '点我拆开今天的英语小技巧 ✨'}}</view>
+      </view>
+    </view>
+
+    <block wx:for="{{map.stages}}" wx:for-item="st" wx:key="si">
+      <view class="stagehead" style="background:linear-gradient(135deg,{{st.color}},{{st.color}}cc)">
+        <view class="big">{{st.icon}}</view>
+        <view class="sen">STOP {{st.no}} · {{st.en}}</view>
+        <view class="h3">{{st.name}}</view>
+        <view class="ab">🔓 解锁能力：{{st.unlock}}</view>
+      </view>
+      <view class="path" style="height:{{st.h}}rpx">
+        <view wx:for="{{st.dots}}" wx:for-item="d" wx:key="index" class="dot" style="left:{{d.x}}rpx;top:{{d.y}}rpx"></view>
+        <view wx:for="{{st.nodes}}" wx:for-item="n" wx:key="id"
+              id="{{n.cur ? 'curnode' : 'n' + n.id}}"
+              class="node {{n.boss ? 'boss' : ''}} {{n.lock ? 'lock' : ''}} {{n.cur ? 'cur' : ''}}"
+              hover-class="press"
+              style="left:{{n.left}}rpx;top:{{n.top}}rpx;width:{{n.size}}rpx;height:{{n.size}}rpx;background:{{st.color}}"
+              data-id="{{n.id}}" bindtap="onNode">
+          <text>{{n.label}}</text>
+          <view class="st" wx:if="{{n.done}}">
+            <text wx:for="{{[1, 2, 3]}}" wx:for-item="k" wx:key="*this" class="{{k <= n.stars ? '' : 'dim'}}">⭐</text>
+          </view>
+        </view>
+        <view wx:if="{{st.here}}" class="here bob" style="left:{{st.here.left}}rpx;top:{{st.here.top}}rpx">
+          <view class="tag">开始！</view>
+          <image class="here-m" src="/images/mascot-cheer.png" mode="aspectFit"></image>
+        </view>
+      </view>
+    </block>
+
+    <view class="finale card center">
+      <view style="font-size:104rpx">🎬</view>
+      <view class="h3">终点：你的封面大片</view>
+      <view class="small" style="margin-bottom:24rpx">通关 30 关，录下你的第一条英文 vlog 开场，生成一张属于你的杂志封面</view>
+      <view class="btn {{map.all ? 'pink' : ''}}" hover-class="press" bindtap="onFinale">{{map.all ? '✨ 去拍我的封面大片' : '🔒 还差 ' + map.left + ' 关'}}</view>
+    </view>
+  </view>
+
+  <!-- ========== 30 天后的我 ========== -->
+  <view wx:if="{{tab === 'future' && future}}">
+    <view class="sec center">
+      <image class="bob" src="/images/mascot-love.png" mode="aspectFit" style="width:220rpx;height:220rpx;margin:0 auto"></image>
+      <view class="h2" style="margin-top:12rpx"><view>30 天后，</view><view>你会成为这样的女生 ✨</view></view>
+      <view class="small">每天 10 分钟，闯完 30 关，200 句地道口语变成你自己的话</view>
+    </view>
+    <view class="sec">
+      <view wx:for="{{future.cards}}" wx:key="t" class="postcard card">
+        <view class="em">{{item.e}}</view>
+        <view style="flex:1">
+          <view class="pt">{{item.t}}</view>
+          <view class="pd">{{item.d}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="sec">
+      <view class="h2">终点奖励：你的封面大片 📸</view>
+      <view class="coverwrap">
+        <canvas type="2d" id="futureCover" class="cover-cv"></canvas>
+        <view wx:if="{{!future.unlocked}}" class="lockv">
+          <view style="font-size:60rpx">🔒</view>
+          <view>通关第 30 关解锁</view>
+          <view class="small">放上你的照片和名字，生成专属杂志封面</view>
+        </view>
+      </view>
+    </view>
+    <view class="sec">
+      <view class="h2">你的旅行护照 🛂</view>
+      <view class="card">
+        <view class="stamps">
+          <view wx:for="{{future.stamps}}" wx:key="name" class="stamp {{item.on ? 'on' : ''}}">{{item.icon}}</view>
+        </view>
+        <view style="margin-top:24rpx;font-size:28rpx;line-height:1.8">
+          <view wx:for="{{future.stamps}}" wx:key="name">{{item.on ? '✅' : '⬜'}} <text style="font-weight:800">{{item.name}}</text>：{{item.unlock}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="sec">
+      <view class="h2">毕业那天，你会说出这段话 🎙️</view>
+      <view class="card">
+        <view wx:for="{{future.grad}}" wx:key="en" style="margin-bottom:16rpx">
+          <view style="font-weight:700;font-size:32rpx">{{item.en}}</view>
+          <view class="small">{{item.zh}}</view>
+        </view>
+        <view class="btn lilac wide" hover-class="press" bindtap="onPlayGrad">🔊 先听听未来的自己</view>
+      </view>
+    </view>
+    <view class="sec card center">
+      <view class="disp" style="font-size:40rpx">坚持的复利</view>
+      <view style="font-size:44rpx;font-weight:800;margin:12rpx 0">10 分钟 × 30 天 = 200 句</view>
+      <view class="small">你已经走了 {{future.done}} 关，再坚持 {{future.left}} 关</view>
+      <view class="btn pink wide" style="margin-top:24rpx" hover-class="press" bindtap="onGoNow">{{future.done ? '继续我的旅程' : '现在出发'}}</view>
+    </view>
+  </view>
+
+  <!-- ========== 我的收藏 ========== -->
+  <view wx:if="{{tab === 'me' && me}}">
+    <view class="sec">
+      <view class="card stats">
+        <view><text class="b">{{me.done}}</text><text class="small">已通关</text></view>
+        <view><text class="b">{{me.streak}}</text><text class="small">连续天数</text></view>
+        <view><text class="b">{{me.speaks}}</text><text class="small">开口次数</text></view>
+      </view>
+    </view>
+    <view class="sec">
+      <view class="h2">徽章墙 🏅</view>
+      <view class="badges">
+        <view wx:for="{{me.badges}}" wx:key="t" class="badge card {{item.on ? '' : 'off'}}">
+          <view class="be">{{item.e}}</view>
+          <view class="bt">{{item.t}}</view>
+          <view class="small">{{item.d}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="sec">
+      <view class="h2">护照印章 🛂</view>
+      <view class="card">
+        <view class="stamps">
+          <view wx:for="{{me.stamps}}" wx:key="name" class="stamp {{item.on ? 'on' : ''}}">{{item.icon}}</view>
+        </view>
+        <view class="small" style="margin-top:16rpx">每一站的 🎁 宝箱关通关后盖章</view>
+      </view>
+    </view>
+    <view class="sec">
+      <view class="h2">我的名字</view>
+      <view class="card">
+        <input class="name" maxlength="12" placeholder="写在封面大片上的名字" value="{{me.name}}" bindblur="onName" bindconfirm="onName"/>
+        <view class="small" style="margin-top:16rpx">可以是英文名，比如 Lily、Mia</view>
+      </view>
+    </view>
+    <view class="sec center">
+      <view class="btn sm" hover-class="press" bindtap="onReset">重新开始（清空进度）</view>
+    </view>
+  </view>
+
+  <!-- 底部标签 -->
+  <view class="tabs">
+    <view class="tb {{tab === 'map' ? 'on' : ''}}" data-v="map" bindtap="onTab"><text class="ti">🗺️</text><text>旅程</text></view>
+    <view class="tb {{tab === 'future' ? 'on' : ''}}" data-v="future" bindtap="onTab"><text class="ti">✨</text><text>30天后的我</text></view>
+    <view class="tb {{tab === 'me' ? 'on' : ''}}" data-v="me" bindtap="onTab"><text class="ti">🎒</text><text>我的收藏</text></view>
+  </view>
+</view>
+
+<!-- 首次打开 -->
+<view wx:if="{{showIntro}}" class="ov" catchtouchmove="noop">
+  <scroll-view scroll-y class="ov-in">
+    <view class="ov-pad">
+      <image class="bob" src="/images/mascot-cheer.png" mode="aspectFit" style="display:block;width:300rpx;height:300rpx;margin:40rpx auto 0"></image>
+      <view class="center disp" style="font-size:60rpx;line-height:1.35"><view>嗨！我是糖豆 👋</view><view>欢迎来到口语糖果岛</view></view>
+      <view class="card" style="margin-top:32rpx;font-size:30rpx;line-height:1.8">
+        <view>接下来 30 天，我们一起从 <text style="font-weight:800">巴黎咖啡馆</text> 出发，经过 <text style="font-weight:800">纽约、东京、伦敦</text>，最后到达 <text style="font-weight:800">主角时刻</text> 🎬</view>
+        <view>每天 10 分钟，边玩边学 200 句油管博主天天在说的地道口语。</view>
+        <view>终点，你会录下自己的第一条英文 vlog，还会得到一张 <text style="font-weight:800">专属杂志封面</text> ✨</view>
+      </view>
+      <view class="card" style="margin-top:28rpx">
+        <view class="disp" style="font-size:34rpx;margin-bottom:16rpx">先告诉我，你叫什么？</view>
+        <input class="name" maxlength="12" placeholder="比如 Lily（会印在你的封面上）" bindinput="onIntroInput"/>
+      </view>
+      <view class="btn pink wide" style="margin-top:36rpx;font-size:42rpx" hover-class="press" bindtap="onIntroGo">出发！去巴黎 🥐</view>
+      <view class="small center" style="margin-top:20rpx">建议戴耳机，在安静的地方开口跟读</view>
+    </view>
+  </scroll-view>
+</view>
+
+<fx id="fx"></fx>

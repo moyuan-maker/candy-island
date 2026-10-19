@@ -1,0 +1,18 @@
+.fx{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:95;overflow:hidden}
+.p{position:absolute;line-height:1;display:flex;align-items:center;justify-content:center;opacity:0}
+.p.dot{border-radius:50%}
+.p.rect{border-radius:4rpx;width:24rpx!important;height:10rpx!important}
+.p.emo{width:auto!important;height:auto!important}
+.rain{animation-name:fall;animation-timing-function:linear;animation-fill-mode:forwards}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0)}90%{opacity:1}100%{opacity:0;transform:translateY(115vh) rotate(540deg)}}
+.burst{animation-timing-function:cubic-bezier(.2,.8,.4,1);animation-fill-mode:forwards}
+.f0{animation-name:f0}.f1{animation-name:f1}.f2{animation-name:f2}.f3{animation-name:f3}
+.f4{animation-name:f4}.f5{animation-name:f5}.f6{animation-name:f6}.f7{animation-name:f7}
+@keyframes f0{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(0,-180rpx) scale(1)}}
+@keyframes f1{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(130rpx,-130rpx) scale(1)}}
+@keyframes f2{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(180rpx,0) scale(1)}}
+@keyframes f3{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(130rpx,130rpx) scale(1)}}
+@keyframes f4{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(0,180rpx) scale(1)}}
+@keyframes f5{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(-130rpx,130rpx) scale(1)}}
+@keyframes f6{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(-180rpx,0) scale(1)}}
+@keyframes f7{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:0;transform:translate(-130rpx,-130rpx) scale(1)}}

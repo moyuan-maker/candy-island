@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "主角时刻",
+  "usingComponents": {
+    "fx": "/components/fx/fx",
+    "word-sheet": "/components/word-sheet/word-sheet"
+  }
+}

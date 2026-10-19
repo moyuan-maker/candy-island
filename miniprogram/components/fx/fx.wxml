@@ -1,0 +1,3 @@
+<view class="fx">
+  <view wx:for="{{parts}}" wx:key="id" class="p {{item.k}}" style="left:{{item.l}}%;top:{{item.t}}%;width:{{item.s}}rpx;height:{{item.s}}rpx;font-size:{{item.s * 2}}rpx;background:{{item.bg}};animation-delay:{{item.d}}s;animation-duration:{{item.dur}}s;">{{item.e}}</view>
+</view>

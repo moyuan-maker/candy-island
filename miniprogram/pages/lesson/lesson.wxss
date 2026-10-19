@@ -1,0 +1,36 @@
+.wrap{min-height:100vh;padding:24rpx 32rpx 48rpx;background:linear-gradient(180deg,#ffe1ee,#fff6ea 50%,#e9f7ff)}
+.stage{display:flex;flex-direction:column;gap:28rpx}
+.scene{background:#fff3c9}
+.play{width:112rpx;height:112rpx;border-radius:50%;font-size:48rpx;padding:0}
+.ex{background:#fff;border:5rpx dashed #e3cfe0;border-radius:36rpx;padding:20rpx 24rpx;font-size:30rpx;line-height:1.6}
+.exe{font-weight:700;font-size:32rpx}
+.opts{display:flex;flex-direction:column;gap:24rpx}
+.opt{justify-content:flex-start;text-align:left;font-size:36rpx;padding:32rpx 36rpx}
+.opt.right{background:#dcf8e8;border-color:#1fa463;box-shadow:0 10rpx 0 #1fa463}
+.opt.wrong{background:#ffe3e3;border-color:#e5484d;box-shadow:0 10rpx 0 #e5484d}
+.slots{min-height:132rpx;border-bottom:6rpx dashed #d8c3d6;display:flex;flex-wrap:wrap;gap:16rpx;padding:16rpx 0;align-content:flex-start}
+.pool{display:flex;flex-wrap:wrap;gap:20rpx;justify-content:center;margin-top:16rpx}
+.tile{font-weight:800;font-size:38rpx;padding:18rpx 28rpx;border-radius:32rpx;border:6rpx solid var(--ink);box-shadow:0 8rpx 0 var(--ink);color:var(--ink);line-height:1.2}
+.tile.big{font-size:44rpx;padding:24rpx 40rpx}
+.tile.used{visibility:hidden}
+.tile.boom{animation:boom .45s forwards}
+.tile.pop{animation:pop .25s}
+.blank{display:inline-block;min-width:180rpx;border-bottom:8rpx solid var(--pink);text-align:center;color:var(--pink-d);margin:0 8rpx}
+.mood{text-align:center;padding:32rpx}
+.mood .me{font-size:128rpx;display:inline-block;animation:bob 1.4s infinite ease-in-out}
+.mood .mt{font-weight:800;font-size:52rpx;margin-top:8rpx}
+.timer{flex:1;height:28rpx;border:6rpx solid var(--ink);border-radius:999rpx;overflow:hidden;background:#fff}
+.timer .in{height:100%;background:linear-gradient(90deg,var(--yellow),var(--peach));transition:width 1s linear}
+.grid{display:flex;flex-wrap:wrap;gap:20rpx}
+.gem{width:calc((100% - 40rpx) / 3);min-height:156rpx;border-radius:44rpx;border:6rpx solid var(--ink);box-shadow:0 10rpx 0 var(--ink);font-weight:700;font-size:30rpx;padding:16rpx;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.3;transition:transform .15s}
+.gem.g-en{font-size:32rpx;font-weight:800}
+.gem.sel{transform:translateY(-12rpx) scale(1.06);box-shadow:0 20rpx 0 var(--ink);outline:8rpx solid #fff}
+.gem.gone{animation:boom .45s forwards;pointer-events:none}
+.gem.flag{outline:8rpx solid #ffd54f}
+.bigstars{font-size:116rpx;letter-spacing:12rpx;text-align:center}
+.bigstars text{display:inline-block;animation:pop .5s backwards}
+.bigstars .off{filter:grayscale(1);opacity:.3}
+.gain{display:flex;gap:24rpx;align-items:center;animation:pop .5s backwards}
+.gain .ge{font-size:80rpx}
+.share-cv{display:block;width:100%;height:803rpx;border-radius:32rpx}
+.link{text-decoration:underline}

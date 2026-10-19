@@ -1,0 +1,53 @@
+<view class="wrap">
+  <block wx:if="{{phase === 'line'}}">
+    <view class="lhead">
+      <view class="x" hover-class="press" bindtap="onClose">✕</view>
+      <view class="pbar"><view class="in" style="width:{{pct}}%"></view></view>
+      <view class="chip">🎬 {{i + 1}}/{{total}}</view>
+    </view>
+    <view class="coach">
+      <image class="m bob" src="/images/mascot-{{coachMood}}.png" mode="aspectFit"></image>
+      <view class="bubble">{{coachText}}</view>
+    </view>
+    <view class="card prompter">
+      <view class="rec-tag">● REC 提词器</view>
+      <view class="tp"><text wx:for="{{segs}}" wx:key="index" class="{{item.c}}" data-w="{{item.w}}" bindtap="onWord">{{item.t}}</text></view>
+      <view class="center" style="opacity:.8">{{zh}}</view>
+    </view>
+    <view class="center" style="margin:28rpx 0">
+      <view class="btn lilac" hover-class="press" bindtap="onPlay">🔊 听一遍</view>
+    </view>
+    <view class="center">
+      <view class="btn pink mic {{rec ? 'rec' : ''}}" hover-class="press" bindtap="onMic">{{rec ? '⏹' : '🎤'}}</view>
+      <view class="miclabel">{{micLabel}}</view>
+    </view>
+    <view class="foot">
+      <view wx:if="{{foot.selfOk}}" class="center" style="margin-bottom:16rpx">
+        <view class="btn sm" hover-class="press" bindtap="onSelfOk">我读完啦，自己打分</view>
+      </view>
+      <view wx:if="{{foot.kind === 'self'}}" class="row" style="flex-wrap:nowrap">
+        <view class="btn mint" style="flex:1" hover-class="press" data-s="90" bindtap="onRate">😊 读顺了</view>
+        <view class="btn yellow" style="flex:1" hover-class="press" data-s="65" bindtap="onRate">😅 还要练</view>
+      </view>
+      <view wx:if="{{foot.kind === 'next'}}" class="btn mint wide" hover-class="press" bindtap="onNextLine">{{foot.label}}</view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'cover'}}">
+    <view class="center disp" style="font-size:60rpx;margin-top:20rpx">🎉 恭喜杀青！</view>
+    <view class="center small" style="margin-bottom:24rpx">放上你的照片，生成本期封面人物</view>
+    <view class="coverwrap"><canvas type="2d" id="cv" class="cover-cv"></canvas></view>
+    <view class="card" style="margin-top:28rpx">
+      <input class="name" maxlength="12" placeholder="你的名字（英文名更有感觉）" value="{{name}}" bindinput="onName"/>
+      <view class="row" style="margin-top:24rpx;flex-wrap:nowrap">
+        <view class="btn lilac" style="flex:1;font-size:32rpx" hover-class="press" bindtap="onPhoto">📷 {{hasPhoto ? '换一张' : '换成我的照片'}}</view>
+        <view class="btn pink" style="flex:1;font-size:32rpx" hover-class="press" bindtap="onSave">⬇️ 保存封面</view>
+      </view>
+      <view class="small" style="margin-top:16rpx">照片只在你的手机里生成，不会上传</view>
+    </view>
+    <view class="btn wide" style="margin-top:28rpx" hover-class="press" bindtap="onDone">回到旅程</view>
+  </block>
+</view>
+
+<word-sheet id="ws"></word-sheet>
+<fx id="fx"></fx>

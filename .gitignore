@@ -1,0 +1,5 @@
+src/index.html
+src/__pycache__/
+src/test/*.png
+*.csv
+激活码*

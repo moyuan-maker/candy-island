@@ -1,0 +1,192 @@
+<view class="wrap">
+  <!-- ================= 闯关步骤 ================= -->
+  <block wx:if="{{phase === 'step'}}">
+    <view class="lhead">
+      <view class="x" hover-class="press" bindtap="onClose">✕</view>
+      <view class="pbar"><view class="in" style="width:{{pct}}%"></view></view>
+      <view wx:if="{{combo >= 2}}" class="combo">🔥 连击 ×{{combo}}</view>
+      <view wx:else class="chip">{{i + 1}}/{{n}}</view>
+    </view>
+    <view class="coach">
+      <image class="m bob" src="/images/mascot-{{coachMood}}.png" mode="aspectFit"></image>
+      <view class="bubble">{{coachText}}</view>
+    </view>
+
+    <view class="stage">
+      <!-- 学习 + 跟读 -->
+      <block wx:if="{{type === 'learn'}}">
+        <view><view class="chip scene">📍 {{scene}}</view></view>
+        <view class="card">
+          <view class="en {{long ? 'long' : ''}}"><text wx:for="{{segs}}" wx:key="index" class="{{item.c}}" data-w="{{item.w}}" bindtap="onWord">{{item.t}}</text></view>
+          <view class="zh">{{zh}}</view>
+          <view class="row" style="margin-top:28rpx">
+            <view class="btn lilac play" hover-class="press" bindtap="onPlay">🔊</view>
+            <view class="btn play" hover-class="press" bindtap="onSlow">🐢</view>
+            <text class="small">点虚线单词看意思</text>
+          </view>
+        </view>
+        <view wx:if="{{isEx}}" class="ex">
+          <view class="small">重点表达</view>
+          <view class="exe">{{keyEn}}</view>
+          <view class="small">{{keyZh}}</view>
+        </view>
+        <view wx:else class="ex">
+          <view class="small">博主这样用 👇</view>
+          <view class="exe"><text wx:for="{{exSegs}}" wx:key="index" class="{{item.c}}" data-w="{{item.w}}" bindtap="onWord">{{item.t}}</text></view>
+          <view class="small">{{exZh}}</view>
+          <view class="btn sm" style="margin-top:12rpx" hover-class="press" bindtap="onPlayEx">🔊 听例句</view>
+        </view>
+        <view class="center">
+          <view class="btn pink mic {{rec ? 'rec' : ''}}" hover-class="press" bindtap="onMic">{{rec ? '⏹' : '🎤'}}</view>
+          <view class="miclabel">{{micLabel}}</view>
+        </view>
+      </block>
+
+      <!-- 听音选意 -->
+      <block wx:if="{{type === 'choose'}}">
+        <view class="card center">
+          <view class="btn lilac mic" hover-class="press" bindtap="onListen">🔊</view>
+          <view class="miclabel">再听一遍</view>
+        </view>
+        <view class="opts">
+          <view wx:for="{{opts}}" wx:key="index" class="btn opt {{item.c}}" hover-class="press" data-i="{{index}}" bindtap="onOpt">{{item.e}} {{item.t}}</view>
+        </view>
+      </block>
+
+      <!-- 糖果拼句 -->
+      <block wx:if="{{type === 'build'}}">
+        <view class="card">
+          <view class="zh" style="margin:0 0 12rpx">「{{hint}}」</view>
+          <view class="slots {{slotShake ? 'shake' : ''}}">
+            <view wx:if="{{solved}}" class="en long pop">{{solved}}</view>
+            <block wx:else>
+              <view wx:for="{{placed}}" wx:key="k" class="tile {{item.c}} {{item.boom ? 'boom' : 'pop'}}" style="animation-delay:{{item.delay}}ms" data-idx="{{index}}" bindtap="onPlaced">{{item.w}}</view>
+            </block>
+          </view>
+        </view>
+        <view class="pool">
+          <view wx:for="{{tiles}}" wx:key="index" class="tile {{item.c}} {{item.used ? 'used' : ''}}" hover-class="press" data-k="{{index}}" bindtap="onTile">{{item.w}}</view>
+        </view>
+      </block>
+
+      <!-- 填空泡泡 -->
+      <block wx:if="{{type === 'fill'}}">
+        <view class="card">
+          <view class="en long">{{before}}<text class="blank {{blankPop ? 'pop' : ''}}">{{blank}}</text>{{after}}</view>
+          <view class="zh">{{fzh}}</view>
+        </view>
+        <view class="pool">
+          <view wx:for="{{fopts}}" wx:key="index" class="tile big {{item.c}} {{item.x}}" hover-class="press" data-i="{{index}}" bindtap="onFill">{{item.t}}</view>
+        </view>
+      </block>
+
+      <!-- 演技挑战 -->
+      <block wx:if="{{type === 'act'}}">
+        <view class="card mood">
+          <view class="me">{{mood.e}}</view>
+          <view class="mt">{{mood.t}}</view>
+        </view>
+        <view class="card">
+          <view class="en long"><text wx:for="{{segs}}" wx:key="index" class="{{item.c}}" data-w="{{item.w}}" bindtap="onWord">{{item.t}}</text></view>
+          <view class="zh">{{zh}}</view>
+          <view class="btn lilac" style="margin-top:24rpx" hover-class="press" bindtap="onDemo">🔊 看糖豆示范</view>
+        </view>
+        <view class="center">
+          <view class="btn pink mic {{rec ? 'rec' : ''}}" hover-class="press" bindtap="onMic">{{rec ? '⏹' : '🎤'}}</view>
+          <view class="miclabel">{{micLabel}}</view>
+        </view>
+      </block>
+
+      <!-- 糖果消消乐 -->
+      <block wx:if="{{type === 'match'}}">
+        <view class="row" style="gap:16rpx;flex-wrap:nowrap">
+          <view class="chip">⏱ {{sec}}</view>
+          <view class="timer"><view class="in" style="width:{{tpct}}%"></view></view>
+          <view class="chip">💥 {{left}}</view>
+        </view>
+        <view class="grid">
+          <view wx:for="{{gems}}" wx:key="index" class="gem g-{{item.lang}} {{item.c}} {{item.s}}" data-k="{{index}}" bindtap="onGem">{{item.t}}</view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 底部操作区 -->
+    <view class="foot">
+      <view wx:if="{{foot.selfOk}}" class="center" style="margin-bottom:16rpx">
+        <view class="btn sm" hover-class="press" bindtap="onSelfOk">我读完啦，自己打分</view>
+      </view>
+      <view wx:if="{{foot.kind === 'skip'}}" class="center">
+        <view class="btn sm" hover-class="press" bindtap="onSkip">{{foot.skip}}</view>
+      </view>
+      <view wx:if="{{foot.kind === 'self'}}" class="row" style="flex-wrap:nowrap">
+        <view class="btn mint" style="flex:1" hover-class="press" data-s="90" bindtap="onRate">😊 读顺了</view>
+        <view class="btn yellow" style="flex:1" hover-class="press" data-s="65" bindtap="onRate">😅 还要练</view>
+      </view>
+      <block wx:if="{{foot.kind === 'score'}}">
+        <view class="card scorebox">
+          <view class="num">{{foot.score}}</view>
+          <view>
+            <view class="t">{{foot.title}}</view>
+            <view class="stars"><text wx:for="{{[1, 2, 3]}}" wx:for-item="k" wx:key="*this" class="{{k <= foot.tier ? '' : 'off'}}" style="animation-delay:{{k * 0.12}}s">⭐</text></view>
+          </view>
+        </view>
+        <view class="row" style="flex-wrap:nowrap">
+          <view class="btn" style="flex:1" hover-class="press" bindtap="onAgain">🔁 再读一次</view>
+          <view class="btn mint" style="flex:1.4" hover-class="press" bindtap="onNextLearn">下一个 →</view>
+        </view>
+      </block>
+      <block wx:if="{{foot.kind === 'fb'}}">
+        <view class="fb {{foot.ok ? 'ok' : 'no'}}">
+          <text class="t">{{foot.title}}</text>
+          <view wx:if="{{foot.en}}" class="e">{{foot.en}}</view>
+          <view wx:if="{{foot.text}}" class="d">{{foot.text}}</view>
+        </view>
+        <view class="btn wide {{foot.ok ? 'mint' : 'yellow'}}" hover-class="press" bindtap="onGo">继续 →</view>
+      </block>
+    </view>
+  </block>
+
+  <!-- ================= 结算 ================= -->
+  <block wx:if="{{phase === 'result' && r}}">
+    <image class="bob" src="/images/mascot-cheer.png" mode="aspectFit" style="display:block;width:260rpx;height:260rpx;margin:20rpx auto 0"></image>
+    <view class="center disp" style="font-size:64rpx;margin:8rpx 0">第 {{r.id}} 关 通关！</view>
+    <view class="bigstars"><text wx:for="{{[1, 2, 3]}}" wx:for-item="k" wx:key="*this" class="{{k <= r.stars ? '' : 'off'}}" style="animation-delay:{{0.2 + k * 0.25}}s">⭐</text></view>
+    <view class="card stats" style="margin-top:28rpx">
+      <view><text class="b">+{{r.xp}}</text><text class="small">经验</text></view>
+      <view><text class="b">{{r.avg}}</text><text class="small">口语均分</text></view>
+      <view><text class="b">{{r.maxCombo}}</text><text class="small">最高连击</text></view>
+    </view>
+    <view wx:if="{{r.sticker}}" class="card gain" style="margin-top:28rpx;animation-delay:1s;background:#fff3c9">
+      <view class="ge">{{r.sticker.e}}</view>
+      <view style="flex:1">
+        <view class="disp" style="font-size:38rpx">护照盖章：{{r.sticker.t}}！</view>
+        <view style="font-size:28rpx;margin-top:4rpx">🔓 新能力解锁：<text style="font-weight:800">{{r.ability.unlock}}</text></view>
+        <view class="small">{{r.ability.detail}}</view>
+      </view>
+    </view>
+    <view wx:for="{{r.badges}}" wx:key="id" class="card gain" style="margin-top:20rpx;animation-delay:{{1.2 + index * 0.2}}s">
+      <view class="ge">{{item.e}}</view>
+      <view style="flex:1">
+        <view style="font-weight:800">新徽章：{{item.t}}</view>
+        <view class="small">{{item.d}}</view>
+      </view>
+    </view>
+    <view class="card" style="margin-top:24rpx;font-size:28rpx;line-height:1.7">
+      <view style="font-weight:800">🥠 今日小技巧：{{r.tipT}}</view>
+      <view>{{r.tipB}}</view>
+    </view>
+    <view class="card center" style="margin-top:24rpx">
+      <canvas type="2d" id="share" class="share-cv"></canvas>
+      <view class="btn sm" style="margin-top:20rpx" hover-class="press" bindtap="onSaveShare">⬇️ 保存打卡图，发朋友圈</view>
+    </view>
+    <view class="row" style="margin-top:28rpx;flex-wrap:nowrap">
+      <view class="btn" style="flex:1" hover-class="press" bindtap="onReplay">🔁 再玩一次</view>
+      <view class="btn pink" style="flex:1.4" hover-class="press" bindtap="onNextLv">{{r.last ? '🎬 去拍封面大片' : '下一关 →'}}</view>
+    </view>
+    <view class="center" style="margin-top:28rpx"><text class="small link" bindtap="onHome">回到旅程地图</text></view>
+  </block>
+</view>
+
+<view wx:for="{{praises}}" wx:key="id" class="praise">{{item.t}}</view>
+<word-sheet id="ws"></word-sheet>
+<fx id="fx"></fx>

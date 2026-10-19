@@ -1,0 +1,10 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:2});
+const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file://'+process.cwd()+'/index.html');await p.evaluate(()=>{S.intro=true;for(let i=1;i<=3;i++)S.lv[i]={stars:3};save();$('#intro').hidden=true;renderMap()});
+await p.waitForTimeout(300);await p.screenshot({path:'k1.png'});
+await p.click('.node[data-id="4"]');await p.waitForTimeout(500);
+await p.fill('#code','TANG-AAAA-BBBB-CCCC');await p.click('#codeGo');await p.waitForTimeout(400);
+console.log('wrong:',await p.textContent('#codeMsg'));await p.screenshot({path:'k2.png'});
+await p.fill('#code','TANG-26MA-JSKR-MDYH'.toLowerCase().replace(/-/g,' '));await p.click('#codeGo');await p.waitForTimeout(1500);
+console.log('pro:',await p.evaluate(()=>S.pro+' '+S.code),'lessonOpen:',await p.evaluate(()=>!$('#lesson').hidden&&L.id));
+console.log(errs);await b.close()})();

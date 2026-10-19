@@ -1,0 +1,6 @@
+.wrap{min-height:100vh;padding:24rpx 32rpx calc(48rpx + env(safe-area-inset-bottom));background:linear-gradient(180deg,#ffe1ee,#fff6ea 50%,#e9f7ff)}
+.prompter{background:#2b2140!important;color:#fff;border-color:#2b2140!important;box-shadow:0 12rpx 0 #000!important}
+.rec-tag{font-size:26rpx;color:#ffb3d1}
+.tp{font-weight:800;font-size:48rpx;line-height:1.4;text-align:center;margin:32rpx 0}
+.tp .w.ok{background:rgba(31,164,99,.3);color:#9ff0c4}
+.tp .w.miss{background:rgba(229,72,77,.3);color:#ffb0b0}

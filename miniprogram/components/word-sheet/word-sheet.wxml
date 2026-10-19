@@ -1,0 +1,19 @@
+<view class="ws-mask {{show ? 'on' : ''}}" bindtap="onClose" catchtouchmove="noop"></view>
+<view class="ws {{show ? 'on' : ''}}" catchtouchmove="noop">
+  <view class="card ws-card">
+    <view class="row" style="justify-content:space-between;flex-wrap:nowrap">
+      <view>
+        <view class="ws-wd">{{word}}</view>
+        <view class="ws-ipa" wx:if="{{ipa}}">{{ipa}}</view>
+      </view>
+      <image class="ws-m bob" src="/images/mascot-{{has ? 'wow' : 'happy'}}.png" mode="aspectFit"></image>
+    </view>
+    <view class="ws-mean">{{mean}}</view>
+    <view class="row">
+      <view class="btn lilac sm" hover-class="press" bindtap="onSay">🔊 听发音</view>
+      <view class="btn sm" hover-class="press" bindtap="onSlow">🐢 慢速</view>
+      <view style="flex:1"></view>
+      <view class="btn sm" hover-class="press" bindtap="onClose">记住啦</view>
+    </view>
+  </view>
+</view>
