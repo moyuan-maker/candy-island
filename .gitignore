@@ -3,3 +3,5 @@ src/__pycache__/
 src/test/*.png
 *.csv
 激活码*
+promo/video/out/
+promo/notes/out/

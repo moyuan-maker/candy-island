@@ -1,0 +1,45 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=ZCOOL+KuaiLe&display=swap">
+<style>
+*{box-sizing:border-box;margin:0}body{background:#ddd;font-family:'ZCOOL KuaiLe','WenQuanYi Zen Hei',sans-serif;color:#4a2c45}
+.pg{width:1080px;height:1440px;position:relative;overflow:hidden;margin-bottom:20px;background:linear-gradient(165deg,#ffd9e8,#ffeef5 50%,#fff3d1)}
+.tag{display:inline-block;background:#4a2c45;color:#fff;font-size:40px;padding:12px 36px;border-radius:60px;box-shadow:0 6px 0 #ff5c93}
+.en{font-family:'Baloo 2',sans-serif;font-weight:800}
+.blob{position:absolute;border-radius:50%;opacity:.5}
+.p1 .wrap{position:absolute;inset:80px 70px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.p1 h1{font-size:92px;font-weight:400;line-height:1.2;margin-top:50px}
+.p1 h1 em{font-style:normal;color:#ff3d7f}
+.hero{margin-top:40px;background:#fff;border:8px solid #4a2c45;border-radius:50px;padding:34px 50px;box-shadow:0 12px 0 #ff5c93;width:100%}
+.hero .en{font-size:96px;line-height:1.05;color:#ff3d7f}.hero .zh{font-size:50px;margin-top:10px}
+.hero .ex{font-family:'Baloo 2';font-weight:700;font-size:40px;margin-top:20px;color:#7a5a74}
+.p1 .foot{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;justify-content:space-between}
+.p1 .foot .t{font-size:46px;text-align:left;line-height:1.35;margin-bottom:40px}
+.p2{padding:60px 60px}.p2 h2{font-size:60px;font-weight:400;margin:22px 0 24px;position:relative}.tag,.wrap,.hero,.phones,.price,.p3 h2,.p3 .s{position:relative}
+.row{position:relative;display:flex;gap:24px;align-items:center;background:#fff;border:5px solid #4a2c45;border-radius:32px;padding:14px 28px;margin-bottom:16px;box-shadow:0 6px 0 rgba(74,44,69,.15)}
+.row .n{flex:none;width:62px;height:62px;border-radius:50%;background:#ff7eb3;color:#fff;font-family:'Baloo 2';font-weight:800;font-size:38px;display:flex;align-items:center;justify-content:center}
+.row .a{font-size:46px;line-height:1.05}.row .b{font-size:34px;margin-top:2px}.row .c{font-family:'Baloo 2';font-weight:600;font-size:28px;color:#8a6f86;margin-top:2px;line-height:1.2}
+.p3{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:70px}
+.p3 h2{font-size:76px;font-weight:400;line-height:1.25;margin-top:30px}.p3 h2 em{font-style:normal;color:#ff3d7f}
+.phones{display:flex;gap:30px;margin-top:40px}
+.phones img{width:300px;border:10px solid #4a2c45;border-radius:44px;box-shadow:0 10px 0 rgba(74,44,69,.2)}
+.phones img:nth-child(2){transform:translateY(-30px)}
+.price{margin-top:50px;background:#ff3d7f;color:#fff;border-radius:40px;padding:16px 50px;font-size:64px;box-shadow:0 10px 0 #c2306a}
+.price b{font-family:'Baloo 2';font-size:100px}
+.p3 .s{font-size:44px;margin-top:30px}
+</style></head><body><div id="root"></div>
+<script src="../../src/core/content.js"></script><script src="../../src/core/mascot.js"></script>
+<script>
+const n=+new URLSearchParams(location.search).get('day')||1, lv=CONTENT.LEVELS[n-1], st=CONTENT.STAGES[lv.stage], it=lv.items[0];
+const SHOTS=[['app-score','app-match','app-build'],['app-match','app-score','app-act'],['app-build','app-score','app-cover']][n%3];
+const blobs='<div class="blob" style="width:360px;height:360px;background:#ffb3d1;left:-140px;top:700px"></div><div class="blob" style="width:280px;height:280px;background:#ffe08a;right:-100px;top:200px"></div>';
+document.getElementById('root').innerHTML=`
+<div class="pg p1" id="s1">${blobs}<div class="wrap"><span class="tag">🍬 30天出国旅行口语 · Day ${n}</span>
+<h1>${st.icon} ${st.name}篇<br>油管博主<em>天天说</em>的这句</h1>
+<div class="hero"><div class="en">${it.en}</div><div class="zh">${it.zh}</div><div class="ex">“${it.ex}”</div></div>
+<div class="foot"><div class="t">今天一共 <b style="color:#ff3d7f">${lv.items.length}</b> 句<br>👉 往后翻，跟读打卡</div>${mascot('cheer',300)}</div></div></div>
+<div class="pg p2" id="s2">${blobs}<span class="tag">📍 Day ${n} · ${st.name}</span><h2>今天的 ${lv.items.length} 句，<span style="color:#ff3d7f">大声读 3 遍</span></h2>
+${lv.items.map((x,i)=>`<div class="row"><div class="n">${i+1}</div><div><div class="a en">${x.en}</div><div class="b">${x.short}</div><div class="c">${x.ex}</div></div></div>`).join('')}</div>
+<div class="pg p3" id="s3">${blobs}<span class="tag">🎮 不想死记？玩着学</span><h2>跟读<em>打分</em> · 消消乐<em>配对</em><br>30 天走完 5 个城市</h2>
+<div class="phones">${SHOTS.map(s=>`<img src="../${s}.png">`).join('')}</div>
+<div class="price"><b>9.9</b> 元 一次买断</div><div class="s">前 3 关免费试玩 · 评论区扣「糖果」</div></div>`;
+</script></body></html>

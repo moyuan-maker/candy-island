@@ -15,6 +15,8 @@ Live site: https://moyuan-maker.github.io/candy-island/ (GitHub Pages serves `ma
 - `miniprogram/` — native WeChat mini program (WechatSI plugin for TTS/ASR). `miniprogram/utils/content.js` and `engine.js` must stay identical copies of `src/core/`.
 - `src/pdf/build.js` — renders the 35-page PDF from `src/data/data.txt` (node + playwright).
 - `promo/` — 小红书 promo slides (`slides.html`, `render.js`) and app screenshots.
+  - `promo/video/` — batch 小红书 vertical videos: `specs.js` (one entry per video: hook, shots, captions), `stage.html` (frame), `rec.js` (plays the real app in an iframe, CDP screencast → ffmpeg mp4). Run from repo root: `python3 -m http.server 8765 &` then `cd promo/video && NODE_PATH=$(npm root -g) node rec.js [id-prefix]`.
+  - `promo/notes/` — 30-day image notes (`card.html?day=N`, `render.js`) and posting copy (`node copy.js > 发布清单.md`). Same server needed.
 - `src/test/` — playwright scripts (run from `src/` after building; `NODE_PATH=$(npm root -g) node test/test.js`).
 
 ## Common tasks
