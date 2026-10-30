@@ -31,6 +31,6 @@ C.LEVELS.forEach((lv, i) => {
   const n = i + 1, st = C.STAGES[lv.stage], it = lv.items[0], dd = String(n).padStart(2, '0');
   md += `### Day ${n} · ${st.icon} ${st.name}\n\n文件：视频 \`day${dd}.mp4\`；图文 \`day${dd}-1.png\` \`day${dd}-2.png\` \`day${dd}-3.png\`\n\n**标题**：${dayTitle(n, it)}\n\n**正文**：\n\n出国前 30 天，每天跟读一关 ✈️ 今天是 Day ${n} · ${st.name}篇，一共 ${lv.items.length} 句：\n\n`;
   lv.items.forEach((x, k) => md += `${NUM[k]} ${x.en}：${x.short}\n例：${x.ex}\n\n`);
-  md += `👉 每句大声读 3 遍，评论区打卡「Day ${n} 已读」\n\n${SHOP}\n\n${TAGS}\n\n`;
+  md += `👉 每句大声读 3 遍。这几句里你最常用哪句？\n\n${SHOP}\n\n${TAGS}\n\n`;
 });
 process.stdout.write(md);
